@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+  <!-- Atualizado para Spring Boot -->
+  <link rel="stylesheet" th:href="@{/css/cadastro.css}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <!-- Área do formulário -->
+  <div class="form-section">
+    <h2>Faça o Cadastro:</h2>
+    <p>Crie sua conta para começar!</p>
+
+    <form th:action="@{/cadastro}" method="post">
+      <input type="text" name="nome" placeholder="Nome completo" required>
+      <input type="email" name="email" placeholder="E-mail" required>
+      <input type="password" name="senha" placeholder="Senha" required>
+      <br>
+      <button type="submit" class="btn">Cadastrar</button>
+    </form>
+
+    <p class="login">Já tem conta? <a th:href="@{/login}">Faça o Login</a></p>
+
+    <p th:text="${mensagem}" style="color:green;"></p>
+  </div>
+</div>
+</body>
+</html>
