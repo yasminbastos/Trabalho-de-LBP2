@@ -7,7 +7,7 @@
 }
 
 body {
-    background: linear-gradient(135deg, #b44cff, #ff70c7);
+    background: linear-gradient(135deg, #7d4ca2, #e48de3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,7 +34,7 @@ body {
 .form-section h2 {
     font-size: 28px;
     margin-bottom: 10px;
-    color: #2d033b;
+    color: #8d40a6;
 }
 
 .form-section p {
@@ -62,7 +62,7 @@ input:focus {
 }
 
 .btn {
-    background: #3b0052;
+    background: #9973d8;
     color: #fff;
     padding: 12px;
     border-radius: 10px;
@@ -74,13 +74,13 @@ input:focus {
 }
 
 .btn:hover {
-    background: #5b0080;
+    background: #574c9b;
 }
 
 .login {
     margin-top: 20px;
     font-size: 14px;
-    color: #333;
+    color: #4f53a8;
 }
 
 .login a {

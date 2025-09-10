@@ -7,6 +7,7 @@
   <!-- Atualizado para Spring Boot -->
   <link rel="stylesheet" th:href="@{/css/login.css}">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/felino.png">
 </head>
 <body>
 <div class="container">
@@ -21,7 +22,7 @@
       <input type="email" name="email" placeholder="e-mail" required>
       <input type="password" name="senha" placeholder="senha" required>
       <br>
-      <button type="submit" class="btn">Fazer Login</button>
+      <button type="submit" class="btn btn-login">Fazer Login</button>
     </form>
 
     <p class="register">Não tem conta? <a th:href="@{/cadastro}">Faça o Cadastro</a></p>
