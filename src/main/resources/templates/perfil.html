@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,98 +12,93 @@
 </head>
 
 <body>
-    <!-- ===== ===== Body Main-Background ===== ===== -->
-    <span class="main_bg"></span>
+<!-- ===== ===== Body Main-Background ===== ===== -->
+<span class="main_bg"></span>
 
+<!-- ===== ===== Main-Container ===== ===== -->
+<div class="container">
 
-    <!-- ===== ===== Main-Container ===== ===== -->
-    <div class="container">
-        <!-- ===== ===== User Main-Profile ===== ===== -->
-        <section class="userProfile card">
-            <div class="profile">
-                <figure><img src="images\icone.png" alt="profile" width="250px" height="250px"></figure>
+    <!-- ===== ===== User Main-Profile ===== ===== -->
+    <section class="userProfile card">
+        <div class="profile">
+            <figure><img src="images/icone.png" alt="profile" width="250px" height="250px"></figure>
+        </div>
+    </section>
+
+    <!-- ===== ===== Work & Skills Section ===== ===== -->
+    <section class="work_skills card">
+        <div class="skills">
+            <h1 class="heading">Gráfico de Humor</h1>
+            <center><img src="images/grafico.png" alt="profile" width="420px" height="300px"></center>
+        </div>
+    </section>
+
+    <!-- ===== ===== User Details Sections ===== ===== -->
+    <section class="userDetails card">
+        <div class="userName">
+            <h1><span th:text="${usuario}">Usuário</span></h1>
+            <p>Designer Gráfica</p>
+        </div>
+
+        <div class="rank">
+            <h1 class="heading">Dias de Uso</h1>
+            <span>86 dias</span>
+            <div class="rating">
+                <i class="ri-star-fill rate"></i>
+                <i class="ri-star-fill rate"></i>
+                <i class="ri-star-fill rate"></i>
+                <i class="ri-star-fill rate"></i>
+                <i class="ri-star-fill rate underrate"></i>
             </div>
-        </section>
+        </div>
 
+        <div class="btns">
+            <ul>
+                <li class="sendMsg active">
+                    <i class="ri-check-fill ri"></i>
+                    <a href="#">Registe seu humor</a>
+                </li>
+            </ul>
+        </div>
+    </section>
 
-        <!-- ===== ===== Work & Skills Section ===== ===== -->
-        <section class="work_skills card">
-            <!-- ===== ===== Skills Contaienr ===== ===== -->
-            <div class="skills">
-                <h1 class="heading">Gráfico de Humor</h1>
-                <center><img src="images\grafico.png" alt="profile" width="420px" height="300px"></center>
-            </div>
-        </section>
+    <!-- ===== ===== Timeline & About Sections ===== ===== -->
+    <section class="timeline_about card">
+        <div class="tabs">
+            <ul>
+                <li class="about active">
+                    <i class="ri-user-3-fill ri"></i>
+                    <span>Informação do Usuário</span>
+                </li>
+            </ul>
+        </div>
 
-
-        <!-- ===== ===== User Details Sections ===== ===== -->
-        <section class="userDetails card">
-            <div class="userName">
-                <h1 class="name"><span th:text="${nome}"></span></h1>
-                <p>Designer Gráfica</p>
-            </div>
-
-            <div class="rank">
-                <h1 class="heading">Dias de Uso</h1>
-                <span>86 dias</span>
-                <div class="rating">
-                    <i class="ri-star-fill rate"></i>
-                    <i class="ri-star-fill rate"></i>
-                    <i class="ri-star-fill rate"></i>
-                    <i class="ri-star-fill rate"></i>
-                    <i class="ri-star-fill rate underrate"></i>
-                </div>
-            </div>
-
-            <div class="btns">
-                <ul>
-                    <li class="sendMsg active">
-                        <i class="ri-check-fill ri"></i>
-                        <a href="#">Registe seu humor</a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-
-        <!-- ===== ===== Timeline & About Sections ===== ===== -->
-        <section class="timeline_about card">
-            <div class="tabs">
-                <ul>
-                    <li class="about active">
-                        <i class="ri-user-3-fill ri"></i>
-                        <span>Informação do Usuário</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="contact_Info">
-                <ul>
-                    <li class="phone">
-                        <h1 class="label">Telefone:</h1>
-                        <span class="info">+11 4002-8922</span>
-                    </li>
-                    <br>
-                    <li class="address">
-                        <h1 class="label">Estado Cívil:</h1>
-                        <span class="info">Casada</span>
-                    </li>
-                    <br>
-                    <li class="email">
-                        <h1 class="label">E-mail:</h1>
-                        <span class="info"><span th:text="${email}"></span></span>
-                    </li>
-                    <br>
-                    <li class="email">
-                        <h1 class="label">Estado:</h1>
-                        <span class="info">São Paulo, SP</span>
-                    </li>
-                    <br>
-                </ul>
-            </div>
-        </section>
-    </div>
+        <div class="contact_Info">
+            <ul>
+                <li class="phone">
+                    <h1 class="label">Telefone:</h1>
+                    <span class="info">+11 4002-8922</span>
+                </li>
+                <br>
+                <li class="address">
+                    <h1 class="label">Estado Cívil:</h1>
+                    <span class="info">Casada</span>
+                </li>
+                <br>
+                <li class="email">
+                    <h1 class="label">E-mail:</h1>
+                    <span class="info" th:text="${email}">usuario@email.com</span>
+                </li>
+                <br>
+                <li class="email">
+                    <h1 class="label">Estado:</h1>
+                    <span class="info">São Paulo, SP</span>
+                </li>
+                <br>
+            </ul>
+        </div>
+    </section>
+</div>
 
 </body>
-
 </html>
