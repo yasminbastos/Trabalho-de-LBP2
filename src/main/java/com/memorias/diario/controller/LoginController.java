@@ -84,4 +84,10 @@ public class LoginController {
         session.invalidate();
         return "redirect:/login";
     }
+
+    @GetMapping("/inicial")
+    public String inicial() {
+        return "inicial"; // retorna o nome do template inicial.html em templates/
+    }
+
 }
