@@ -1,6 +1,8 @@
 package com.memorias.diario.controller;
 
-import com.memorias.diario.model.Usuario;
+import com.memorias.diario.models.Usuario;
+import com.memorias.diario.repositories.UsuariosRepository;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,13 +10,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class LoginController {
 
-    private List<Usuario> usuarios = new ArrayList<>();
+    private final UsuariosRepository repository;
+//    private List<Usuario> usuarios = new ArrayList<>(Arrays.asList(new Usuario("TEste", "teste@teste.com", "teste")));
+
+
+    public LoginController(UsuariosRepository repository){
+        this.repository = repository;
+    }
+    @PostConstruct
+    public void init() {
+        var usuarioExistente = repository.findAllByEmailAndSenha("batata@example.org", "batata");
+
+        if (usuarioExistente.isEmpty()) {
+            var novoUsuario = new Usuario();
+            novoUsuario.setEmail("batata@example.org");
+            novoUsuario.setNome("batata");
+            novoUsuario.setSenha("batata");
+            repository.save(novoUsuario);
+        }
+    }
 
     // Página inicial
     @GetMapping("/")
@@ -35,20 +54,31 @@ public class LoginController {
                         HttpSession session,
                         Model model) {
 
-        Usuario u = usuarios.stream()
-                .filter(user -> user.getEmail().equals(email) && user.getSenha().equals(senha))
-                .findFirst()
-                .orElse(null);
+        var usuarioExistente = repository.findAllByEmailAndSenha("batata@example.org", "batata");
 
-        if (u != null) {
-            session.setAttribute("usuario", u.getNome());   // Salva o nome na sessão
-            session.setAttribute("email", u.getEmail());    // Salva o email na sessão
-            return "redirect:/home";                        // Redireciona para home
-        } else {
-            model.addAttribute("erro", "Email ou senha inválidos");
-            return "login";
+        if (usuarioExistente.isEmpty()) {
+            var novoUsuario = new Usuario();
+            novoUsuario.setEmail("batata@example.org");
+            novoUsuario.setNome("batata");
+            novoUsuario.setSenha("batata");
+            repository.save(novoUsuario);
         }
+
+        List<Usuario> resultados = repository.findAllByEmailAndSenha(email, senha);
+
+        if (!resultados.isEmpty()) {
+            var usuario = resultados.get(0);  // pega o primeiro usuário
+
+            session.setAttribute("usuario", usuario.getNome());
+            session.setAttribute("email", usuario.getEmail());
+
+            return "redirect:/home";
+        }
+
+        model.addAttribute("erro", "Email ou senha inválidos");
+        return "login";
     }
+
 
     // Página de cadastro
     @GetMapping("/cadastro")
@@ -62,8 +92,8 @@ public class LoginController {
                             @RequestParam String email,
                             @RequestParam String senha,
                             Model model) {
-        usuarios.add(new Usuario(nome, email, senha));
-        model.addAttribute("mensagem", "Cadastro realizado com sucesso!");
+//        usuarios.add(new Usuario(nome, email, senha));
+//        model.addAttribute("mensagem", "Cadastro realizado com sucesso!");
         return "login";
     }
 
