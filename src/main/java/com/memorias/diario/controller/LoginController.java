@@ -86,14 +86,19 @@ public class LoginController {
         return "cadastro";
     }
 
-    // Cadastrar novo usuário
     @PostMapping("/cadastro")
     public String cadastrar(@RequestParam String nome,
                             @RequestParam String email,
                             @RequestParam String senha,
                             Model model) {
-//        usuarios.add(new Usuario(nome, email, senha));
-//        model.addAttribute("mensagem", "Cadastro realizado com sucesso!");
+        Usuario novoUsuario = new Usuario();
+        novoUsuario.setNome(nome);
+        novoUsuario.setEmail(email);
+        novoUsuario.setSenha(senha);
+
+        repository.save(novoUsuario);
+
+        model.addAttribute("mensagem", "Cadastro realizado com sucesso!");
         return "login";
     }
 
