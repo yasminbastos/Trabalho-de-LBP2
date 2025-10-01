@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Home</title>
-  <link rel="stylesheet" th:href="@{/css/home.css}">
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="icon" type="image/png" href="/images/mascote.png">
 </head>
 <body>
 <div class="container">
-  <h1>Bem-vindo <span th:text="${nome}">Usuário</span></h1>
-  <a class="btn" th:href="@{/logout}">Fazer Logout</a>
-  <a class="btn" th:href="@{/perfil}">Perfíl</a>
+    <h1>Bem-vindo <span th:text="${nome}">Usuário</span></h1>
+    <a class="btn" th:href="@{/logout}">Fazer Logout</a>
+    <a class="btn" th:href="@{/perfil}">Perfíl</a>
 </div>
 </body>
 </html>

@@ -28,7 +28,7 @@ body {
 
 .illustration {
     flex: 1;
-    background: url("../images/logo3.gif") no-repeat center;
+    background: url("../images/logo.png") no-repeat center;
     background-size: cover;
 }
 
