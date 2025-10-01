@@ -15,7 +15,7 @@ public class PerfilController {
         String email = (String) session.getAttribute("email");
 
         if (usuario == null || email == null) {
-            return "redirect:/login";
+            return "401";
         }
 
         model.addAttribute("usuario", usuario);
