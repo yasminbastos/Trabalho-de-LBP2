@@ -1,24 +1,26 @@
-**Participantes**
+<h2>Participantes</h2>
 
-Ana Clara Rodrigues Peres Marçal - SP3117499 | ana clara (anarod07)
-<li>Páginas de erro</li>
+<dl>
+  <dt><strong>Ana Clara Rodrigues Peres Marçal</strong> - SP3117499 | Ana Clara (anarod07)</dt>
+  <dd>- Páginas de erro</dd>
 
-Gabrielly Leite de Macedo - SP3115763 | Gaby Macedo (GabyyMacedo)
-<li>Banco de dados</li>
-<li>Front-end</li>
+  <dt><strong>Gabrielly Leite de Macedo</strong> - SP3115763 | Gaby Macedo (GabyyMacedo)</dt>
+  <dd>- Banco de dados</dd>
+  <dd>- Front-end</dd>
 
-Maria Eduarda de Araujo Souza - SP3115895 | Duda Araújo (Sunieee9)
-<li>Páginas de perfil e erro</li>
-<li>Front-end</li>
+  <dt><strong>Maria Eduarda de Araujo Souza</strong> - SP3115895 | Duda Araújo (Sunieee9)</dt>
+  <dd>- Páginas de perfil e erro</dd>
+  <dd>- Front-end</dd>
 
-Mayara Matilde Cardoso de Freitas - SP3115178 | MayMay (MayMatilde)
-<li>Design</li>
-<li>Front-end</li>
+  <dt><strong>Mayara Matilde Cardoso de Freitas</strong> - SP3115178 | MayMay (MayMatilde)</dt>
+  <dd>- Design</dd>
+  <dd>- Front-end</dd>
 
-Rafael Gomes Messias - SP3124819 | Rafa (Rafael0978)
-<li>Logo</li>
-<li>Página inicial</li>
+  <dt><strong>Rafael Gomes Messias</strong> - SP3124819 | Rafa (Rafael0978)</dt>
+  <dd>- Logo</dd>
+  <dd>- Página inicial</dd>
 
-Yasmin Catherinne Conceição Bastos - SP3116212 | yasmin (yasminbastos)
-<li>Sessão do login e do cadastro</li>
-<li>Front-end</li>
+  <dt><strong>Yasmin Catherinne Conceição Bastos</strong> - SP3116212 | Yasmin (yasminbastos)</dt>
+  <dd>- Sessão do login e do cadastro</dd>
+  <dd>- Front-end</dd>
+</dl>
