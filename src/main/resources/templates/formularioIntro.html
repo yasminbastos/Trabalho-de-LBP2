@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulário para o perfil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/mascote.png">
+    <link rel="stylesheet" th:href="@{/css/formulario.css}">
+
+</head>
+<body>
+<div class="frame">
+    <div class="blob a"></div>
+    <div class="blob b"></div>
+    <div class="blob c"></div>
+    <div class="blob d"></div>
+
+
+    <header>
+        <h1>Conte um pouquinho sobre você</h1>
+        <p>Nesse pequeno formulário você encontrará algumas perguntas que nos ajudarão a melhorar ainda mais o seu perfil.</p>
+    </header>
+
+    <main class="center-wrap">
+        <div class="card" role="region" aria-label="card principal">
+            <h2>Vamos começar?</h2>
+            <div class="buttons">
+                <a th:href="@{/formulario/0}" class="btn">Vamos lá!</a>
+                <a th:href="@{/login}" class="btn">Talvez depois!</a>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="illustration">
+        <img src="/images/imagem1.png" alt="ilustração"/>
+    </div>
+
+</div>
+</body>
+</html>
