@@ -1,24 +1,49 @@
-<!-- Cabeçalho -->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página não encontrada</title>
-    <!-- Atualizado para Spring Boot -->
-    <link rel="stylesheet" th:href="@{/css/error.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/images/mascote.png">
+    <title>error 404</title>
+    <!-- Importando o arquivo CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<!-- Corpo da página -->
 <body>
-<div class="container">
-<h1>404 :(</h1>
-<p>Oops! A página que você está procurando não foi encontrada.</p>
+    <!-- Container principal da página -->
+    <div class="container">
+        <!-- Cabeçalho com o menu simples -->
+        <header>
+            <div class="logo">
+                <img src="images/logo.png">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Perfil</a></li>
+                </ul>
+            </nav>
+        </header>
 
-<!-- Botão em link que volta para a página inicial -->
-<p><a th:href="@{/}">Voltar para a página inicial</a></p>
-</div>
+        <!-- Seção principal (mensagem de erro) -->
+        <main>
+            <div class="text-section">
+                <h1>Oops!</h1>
+                <h2>Página não encontra</h2>
+                <p>O link pode estar incorreto ou a página foi removida.</p>
+                <button>Mais informações</button>
+            </div>
+
+            <!-- imagem de erro -->
+                <div class="error-image">
+                    <img src="images/error.png">
+            </div>
+
+        </main>
+
+        <!-- Rodapé com crédito -->
+        <footer>
+            <p>designed by Motion Mood © 2025</p>
+        </footer>
+    </div>
 </body>
 </html>
