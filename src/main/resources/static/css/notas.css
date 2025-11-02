@@ -1,0 +1,62 @@
+/* Estilo geral da página de anotações */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #cda6ff; /* Fundo da página */
+    color: #411d58; /* Cor do texto principal */
+    margin: 0;
+    padding: 0;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #6a2f91; /* Cabeçalho principal */
+    color: #edd9ff; /* Texto do cabeçalho */
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Seção da imagem */
+#imagem {
+    width: 100%;
+    height: 250px;
+    background-color: #b98be3; /* Espaço reservado com cor suave */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    color: #411d58; /* Texto dentro da imagem, se houver */
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 10px;
+}
+
+/* Seção de anotações */
+#anotacoes {
+    background-color: #edd9ff; /* Fundo do bloco de anotações */
+    margin: 40px auto;
+    padding: 20px;
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    color: #411d58; /* Texto das anotações */
+    font-size: 1rem;
+}
+
+/* Destaques dentro das anotações */
+#anotacoes strong {
+    color: #7f4cd6; /* Para títulos ou destaques importantes */
+}
+
+/* Links dentro das anotações */
+#anotacoes a {
+    color: #6a2f91;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+#anotacoes a:hover {
+    color: #411d58;
+    text-decoration: underline;
+}
