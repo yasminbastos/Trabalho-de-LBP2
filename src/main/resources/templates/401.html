@@ -1,25 +1,49 @@
-<!-- Cabeçalho -->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página não encontrada</title>
-    <!-- Atualizado para Spring Boot -->
-    <link rel="stylesheet" th:href="@{/css/error.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/images/mascote.png">
+    <title>error 401</title>
+    <!-- Importando o arquivo CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
-
-<!-- Corpo da página -->
 <body>
-<div class="container">
-<h1>401 :(</h1>
-<p>Para acessar o site é preciso um cadastro ou fazer login.</p>
+    <!-- Container principal da página -->
+    <div class="container">
+        <!-- Cabeçalho com o menu simples -->
+        <header>
+            <div class="logo">
+                <img src="images/logo.png">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Cadastro</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </nav>
+        </header>
 
-<!-- Botão em link que direciona ao login -->
-    <p><a th:href="@{/login}">Fazer Login</a></p>
-</div>
+        <!-- Seção principal (mensagem de erro) -->
+        <main>
+            <div class="text-section">
+                <h1>Oops!</h1>
+                <h2>Acesso negado</h2>
+                <p>Faça login e tente novamente.</p>
+                <button>Mais informações</button>
+            </div>
+
+            <!-- imagem de erro -->
+                <div class="error-image">
+                    <img src="images/error.png">
+            </div>
+
+        </main>
+
+        <!-- Rodapé com crédito -->
+        <footer>
+            <p>designed by Motion Mood © 2025</p>
+        </footer>
+    </div>
 </body>
 </html>
