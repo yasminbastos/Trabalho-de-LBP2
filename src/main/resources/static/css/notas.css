@@ -1,62 +1,110 @@
-/* Estilo geral da página de anotações */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #cda6ff; /* Fundo da página */
-    color: #411d58; /* Cor do texto principal */
+    /* ----------- CONFIGURAÇÕES GERAIS ----------- */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-/* Cabeçalho */
+body {
+    background-color: #cda6ff; /* Fundo principal */
+    color: #111; /* Texto principal agora mais forte */
+}
+
+/* ----------- CABEÇALHO ----------- */
 header {
-    background-color: #6a2f91; /* Cabeçalho principal */
-    color: #edd9ff; /* Texto do cabeçalho */
+    background-color: #111; /* Roxo escuro */
+    color: #edd9ff; /* Texto claro */
     padding: 20px;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* Seção da imagem */
-#imagem {
-    width: 100%;
-    height: 250px;
-    background-color: #b98be3; /* Espaço reservado com cor suave */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    color: #411d58; /* Texto dentro da imagem, se houver */
-    font-weight: bold;
-    font-size: 1.2rem;
-    border-radius: 10px;
-}
-
-/* Seção de anotações */
-#anotacoes {
-    background-color: #edd9ff; /* Fundo do bloco de anotações */
-    margin: 40px auto;
-    padding: 20px;
+/* ----------- CONTAINER DE ANOTAÇÕES ----------- */
+.container-anotacoes {
     width: 80%;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    color: #411d58; /* Texto das anotações */
-    font-size: 1rem;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Destaques dentro das anotações */
-#anotacoes strong {
-    color: #7f4cd6; /* Para títulos ou destaques importantes */
+/* ----------- CARTÃO DE ANOTAÇÃO ----------- */
+.anotacao-card {
+    background-color: #edd9ff; /* Fundo das anotações */
+    border-left: 5px solid #6a2f91; /* Destaque lateral */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Links dentro das anotações */
-#anotacoes a {
-    color: #6a2f91;
-    text-decoration: none;
+/* Resumo da anotação */
+.anotacao-summary p {
+    margin-bottom: 8px;
+}
+
+.resumo {
+    color: #111; /* Preto para o resumo */
+    font-style: italic;
+}
+
+/* Botão de ação dentro da anotação */
+.btn-expand {
+    background-color: #6a2f91;
+    color: #edd9ff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
     transition: 0.3s;
 }
 
-#anotacoes a:hover {
-    color: #411d58;
-    text-decoration: underline;
+.btn-expand:hover {
+    background-color: #411d58;
+}
+
+/* Área da anotação completa */
+.anotacao-full {
+    display: none; /* Pode ser mostrada via Java adicionando uma classe */
+    margin-top: 15px;
+    color: #111; /* Preto para contraste */
+    background-color: #b98be3; /* Fundo lilás */
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/* ----------- BOTÕES DE AÇÃO ----------- */
+.action-buttons {
+    width: 80%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.action-buttons button {
+    background-color: #6a2f91;
+    color: #edd9ff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.action-buttons button:hover {
+    background-color: #411d58;
+}
+
+/* ----------- RODAPÉ ----------- */
+footer {
+    text-align: center;
+    padding: 15px 0;
+    color: #111; /* Preto */
+    font-size: 0.9rem;
+}
 }
