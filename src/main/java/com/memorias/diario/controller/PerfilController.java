@@ -10,7 +10,6 @@ public class PerfilController {
 
     @GetMapping("/perfil")
     public String mostrarPerfil(HttpSession session, Model model) {
-        // Pega os dados salvos na sessão no momento do login
         String usuario = (String) session.getAttribute("usuario");
         String email = (String) session.getAttribute("email");
 
@@ -20,7 +19,6 @@ public class PerfilController {
 
         model.addAttribute("usuario", usuario);
         model.addAttribute("email", email);
-
         return "perfil";
     }
 }

@@ -16,16 +16,14 @@ import java.util.List;
 public class LoginController {
 
     private final UsuariosRepository repository;
-//    private List<Usuario> usuarios = new ArrayList<>(Arrays.asList(new Usuario("TEste", "teste@teste.com", "teste")));
-
 
     public LoginController(UsuariosRepository repository){
         this.repository = repository;
     }
+
     @PostConstruct
     public void init() {
         var usuarioExistente = repository.findAllByEmailAndSenha("batata@example.org", "batata");
-
         if (usuarioExistente.isEmpty()) {
             var novoUsuario = new Usuario();
             novoUsuario.setEmail("batata@example.org");
@@ -35,43 +33,28 @@ public class LoginController {
         }
     }
 
-    // Página inicial
     @GetMapping("/")
     public String inicialPage() {
         return "inicial";
     }
 
-    // Página de login
     @GetMapping("/login")
     public String loginPage() {
         return "login";
     }
 
-    // Login do usuário
     @PostMapping("/login")
     public String login(@RequestParam String email,
                         @RequestParam String senha,
                         HttpSession session,
                         Model model) {
 
-        var usuarioExistente = repository.findAllByEmailAndSenha("batata@example.org", "batata");
-
-        if (usuarioExistente.isEmpty()) {
-            var novoUsuario = new Usuario();
-            novoUsuario.setEmail("batata@example.org");
-            novoUsuario.setNome("batata");
-            novoUsuario.setSenha("batata");
-            repository.save(novoUsuario);
-        }
-
         List<Usuario> resultados = repository.findAllByEmailAndSenha(email, senha);
 
         if (!resultados.isEmpty()) {
-            var usuario = resultados.get(0);  // pega o primeiro usuário
-
+            var usuario = resultados.get(0);
             session.setAttribute("usuario", usuario.getNome());
             session.setAttribute("email", usuario.getEmail());
-
             return "redirect:/home";
         }
 
@@ -79,8 +62,6 @@ public class LoginController {
         return "login";
     }
 
-
-    // Página de cadastro
     @GetMapping("/cadastro")
     public String cadastroPage() {
         return "cadastro";
@@ -95,25 +76,22 @@ public class LoginController {
         novoUsuario.setNome(nome);
         novoUsuario.setEmail(email);
         novoUsuario.setSenha(senha);
-
         repository.save(novoUsuario);
 
         model.addAttribute("mensagem", "Cadastro realizado com sucesso!");
         return "login";
     }
 
-    // Página home (apenas para usuários logados)
     @GetMapping("/home")
     public String homePage(HttpSession session, Model model) {
         String nome = (String) session.getAttribute("usuario");
-        if (nome == null) { // Se não tiver usuário na sessão
+        if (nome == null) {
             return "redirect:/login";
         }
         model.addAttribute("nome", nome);
         return "home";
     }
 
-    // Logout
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
@@ -122,7 +100,6 @@ public class LoginController {
 
     @GetMapping("/inicial")
     public String inicial() {
-        return "inicial"; // retorna o nome do template inicial.html em templates/
+        return "inicial";
     }
-
 }
