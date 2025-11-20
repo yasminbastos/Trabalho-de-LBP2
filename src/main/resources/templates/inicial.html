@@ -1,224 +1,268 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Motion</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motion</title>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css" />
-  <link rel="stylesheet" th:href="@{/css/home.css}" />
-    <link rel="icon" type="image/png" href="/images/mascote.png">
+    <!-- LINKS EXTERNOS DEVEM SER href NORMAL -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+
+    <!-- CSS INTERNO DO PROJETO -->
+    <link rel="stylesheet" th:href="@{/css/inicial.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/mascote.png}">
 </head>
+
 <body>
-<header class="header">
-  <a href="#" class="logo">
-    <img th:src="@{/images/logo.png}" id="nav_logo" alt="Logo" />
-    Motion
-  </a>
-  <nav class="navbar">
-    <a href="#home">Home</a>
-    <a href="#about">Sobre nós</a>
-    <a href="#quarto">Avaliações</a>
-    <a class="btn" th:href="@{/login}">Login</a>
-  </nav>
-  <div id="menu-btn" class="fas fa-bars"></div>
+<!-- Header -->
+<header>
+    <a href="#" class="logo">
+        Motion
+    </a>
+
+    <nav class="navbar">
+        <a href="#home">Home</a>
+        <a href="#features">Funcionalidades</a>
+        <a href="#reviews">Avaliações</a>
+        <a href="#about">Sobre Nós</a>
+        <a class="btn" th:href="@{/login}">Login</a>
+    </nav>
+
+    <div id="menu-btn" class="fas fa-bars"></div>
 </header>
 
-<section class="home" id="home">
-  <div class="swiper home-slider">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide slide"
-           style="background: url('images/home_images/good_things.jpg') no-repeat center/cover;"></div>
-      <div class="swiper-slide slide"
-           style="background: url('images/home_images/focus.jpg') no-repeat center/cover;"></div>
-      <div class="swiper-slide slide"
-           style="background: url('images/home_images/enjoy.jpg') no-repeat center/cover;"></div>
-      <div class="swiper-slide slide"
-           style="background: url('images/home_images/youcan.jpg') no-repeat center/cover;"></div>
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-content fade-in">
+        <h1>Transforme emoções em <span>autoconhecimento</span></h1>
+        <p>Registre seu humor diariamente e descubra padrões que levam ao seu equilíbrio emocional</p>
+        <a th:href="@{/login}" class="cta-button">Comece Agora</a>
     </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-  </div>
 </section>
 
-<main id="content">
-  <section>
-    <div id="cta" style="text-align:center; margin: 2rem 0;">
-      <h1 class="title">
-        Transforme emoções em<br />
-        <span>autoconhecimento</span>
-      </h1>
-      <p class="description">Registre seu humor e descubra seu equilíbrio.</p>
+<!-- Features Section -->
+<section class="features" id="features">
+    <h2 class="section-title">Como o Motion Funciona</h2>
+    <p class="section-subtitle">Descubra como nossa plataforma pode ajudar você no seu desenvolvimento pessoal</p>
+
+    <div class="features-grid">
+        <div class="feature-card fade-in">
+            <div class="feature-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3>Registro de Humor</h3>
+            <p>Registre como você está se sentindo diariamente com nossa interface intuitiva e amigável.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Análise de Padrões</h3>
+            <p>Identifique padrões em seu humor e comportamentos com relatórios visuais detalhados.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <h3>Insights Pessoais</h3>
+            <p>Receba insights personalizados baseados em seus registros para promover autoconhecimento.</p>
+        </div>
     </div>
-  </section>
-</main>
-
-<section class="review" id="quarto">
-  <h1 class="heading">Nossas avaliações</h1>
-  <div class="swiper room-slider">
-    <div class="swiper-wrapper">
-
-      <div class="swiper-slide slide">
-        <div class="content">
-          <h3>Rafael Gomes</h3>
-          <p>Me ajudou bastante!</p>
-          <div class="stars">
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="swiper-slide slide">
-        <div class="content">
-          <h3>Gaby Macedo</h3>
-          <p>Recomendo muito</p>
-          <div class="stars">
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="swiper-slide slide">
-        <div class="content">
-          <h3>May Matilde</h3>
-          <p>Aplicativo excelente</p>
-          <div class="stars">
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="swiper-slide slide">
-        <div class="content">
-          <h3>Yasmin Catherine</h3>
-          <p>Otimas funcionalidades</p>
-          <div class="stars">
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="swiper-slide slide">
-        <div class="content">
-          <h3>Maria Eduarda</h3>
-          <p>Ameiii, muito bom!</p>
-          <div class="stars">
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="swiper-slide slide">
-        <div class="content">
-          <h3>Ana Clara</h3>
-          <p>Gostei muito!!</p>
-          <div class="stars">
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="swiper-pagination"></div>
-  </div>
 </section>
 
+<!-- Reviews Section -->
+<section class="reviews" id="reviews">
+    <h2 class="section-title">O que nossos usuários dizem</h2>
+    <p class="section-subtitle">Descubra como o Motion tem impactado positivamente a vida de milhares de pessoas</p>
+
+    <div class="reviews-slider swiper">
+        <div class="swiper-wrapper">
+
+            <!-- Review 1 -->
+            <div class="swiper-slide">
+                <div class="review-card">
+                    <p class="review-text">"O Motion me ajudou a entender meus ciclos de humor e a identificar gatilhos que eu nem percebia. Minha qualidade de vida melhorou significativamente!"</p>
+                    <div class="review-author">
+                        <div class="author-avatar">RG</div>
+                        <div class="author-info">
+                            <h4>Rafael Gomes</h4>
+                            <p>Usuário há 6 meses</p>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="swiper-slide">
+                <div class="review-card">
+                    <p class="review-text">"Recomendo muito o Motion! A interface é linda e fácil de usar. Os insights que recebo são sempre muito precisos e me ajudam no meu dia a dia."</p>
+                    <div class="review-author">
+                        <div class="author-avatar">GM</div>
+                        <div class="author-info">
+                            <h4>Gaby Macedo</h4>
+                            <p>Usuária há 1 ano</p>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="swiper-slide">
+                <div class="review-card">
+                    <p class="review-text">"Aplicativo excelente! Nunca consegui manter um diário por muito tempo, mas com o Motion é diferente. A forma como apresenta os dados motiva a continuar."</p>
+                    <div class="review-author">
+                        <div class="author-avatar">MM</div>
+                        <div class="author-info">
+                            <h4>May Matilde</h4>
+                            <p>Usuária há 8 meses</p>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+<!-- About Section -->
 <section class="about" id="about">
-  <div class="row" style="display:flex; gap: 2rem; align-items:center; padding: 2rem;">
-    <div class="image">
-      <img th:src="@{/images/home_images/Mindset.jpg}" alt="" style="max-width:300px; width:100%;" />
+    <div class="about-content">
+        <div class="about-text">
+            <h2>Sobre Nós</h2>
+            <p>Com o intuito de te ajudar na sua jornada de autocontrole e conhecimento pessoal, a Motion é uma plataforma onde você pode realizar anotações diárias sobre seus hábitos e emoções.</p>
+            <p>Nossa missão é fornecer ferramentas que facilitem o autoconhecimento e promovam bem-estar emocional através do registro e análise de padrões comportamentais.</p>
+            <p>Junte-se a milhares de usuários que já transformaram sua relação com as emoções através do Motion.</p>
+        </div>
+        <div class="about-image">
+            <img th:src="@{/images/logo.png}" alt="Pessoa meditando">
+        </div>
     </div>
-    <div class="content">
-      <h3>Sobre Nós</h3>
-      <p>Com o intuito de te ajudar na sua jornada de autocontrole e conhecimento pessoal, a
-          Motion é uma plataforma onde você pode realizar anotações diárias sobre seus hábitos
-          e emoções.</p>
-    </div>
-  </div>
 </section>
 
-<section class="footer" style="background:#33183f; color:#fff; text-align:center; padding: 2rem;">
-  <div class="share" style="margin-bottom:1rem;">
-    <a href="#" class="fab fa-facebook-f" style="color:#e29dff; margin:0 .5rem; font-size:2rem;"></a>
-    <a href="#" class="fab fa-instagram" style="color:#e29dff; margin:0 .5rem; font-size:2rem;"></a>
-    <a href="#" class="fab fa-twitter" style="color:#e29dff; margin:0 .5rem; font-size:2rem;"></a>
-    <a href="#" class="fab fa-pinterest" style="color:#e29dff; margin:0 .5rem; font-size:2rem;"></a>
-  </div>
-  <p class="credit">© 2025 Motion. Todos os direitos reservados.</p>
-</section>
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
 
-<!-- Swiper JS -->
-<script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+        <div class="footer-column">
+            <h3>Motion</h3>
+            <p>Transforme emoções em autoconhecimento. Registre seu humor e descubra seu equilíbrio.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>Links Rápidos</h3>
+            <ul class="footer-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Funcionalidades</a></li>
+                <li><a href="#reviews">Avaliações</a></li>
+                <li><a href="#about">Sobre Nós</a></li>
+                <li><a th:href="@{/login}">Login</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3>Contato</h3>
+            <ul class="footer-links">
+                <li><i class="fas fa-envelope"></i> contato@motion.com</li>
+                <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+                <li><i class="fas fa-map-marker-alt"></i> São Paulo, SP</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025 Motion. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+<!-- Scripts externos (não usar th:) -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
 <script>
-  let menu = document.querySelector('#menu-btn');
-  let navbar = document.querySelector('.header .navbar');
+    let menuBtn = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.navbar');
 
-  menu.onclick = () => {
-    menu.classList.toggle('fa-times');
-    navbar.classList.toggle('active');
-  };
+    menuBtn.onclick = () => {
+        menuBtn.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    };
 
-  window.onscroll = () => {
-    menu.classList.remove('fa-times');
-    navbar.classList.remove('active');
-  };
+    window.addEventListener('scroll', () => {
+        let header = document.querySelector('header');
+        header.classList.toggle('scrolled', window.scrollY > 100);
 
-  var homeSwiper = new Swiper(".home-slider", {
-    grabCursor: true,
-    loop: true,
-    centeredSlides: true,
-    autoplay: {
-      delay: 7500,
-      disableOnInteraction: false,
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-  });
+        menuBtn.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    });
 
-  var roomSwiper = new Swiper(".room-slider", {
-    spaceBetween: 20,
-    grabCursor: true,
-    loop: true,
-    centeredSlides: true,
-    autoplay: {
-      delay: 7500,
-      disableOnInteraction: false,
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    breakpoints: {
-      0: { slidesPerView: 1 },
-      768: { slidesPerView: 2 },
-      991: { slidesPerView: 3 },
-    },
-  });
+    var swiper = new Swiper(".reviews-slider", {
+        spaceBetween: 30,
+        grabCursor: true,
+        loop: true,
+        centeredSlides: true,
+        autoplay: {
+            delay: 7500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        breakpoints: {
+            0: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+        },
+    });
 
-  window.addEventListener('scroll', function () {
-    const header = document.querySelector('.header');
-    const homeSection = document.querySelector('.home');
-    if (!header || !homeSection) return;
-    const homeBottom = homeSection.offsetTop + homeSection.offsetHeight;
+    const fadeElements = document.querySelectorAll('.fade-in');
 
-    if (window.scrollY + header.offsetHeight < homeBottom) {
-      header.style.background = 'transparent';
-      header.style.backdropFilter = '';
-    } else {
-      header.style.background = 'var(--white)';
-      header.style.backdropFilter = 'blur(8px)';
-    }
-  });
+    const fadeInOnScroll = () => {
+        fadeElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+
+            if (elementTop < window.innerHeight - elementVisible) {
+                element.classList.add('active');
+            }
+        });
+    };
+
+    window.addEventListener('load', fadeInOnScroll);
+    window.addEventListener('scroll', fadeInOnScroll);
 </script>
+
 </body>
 </html>

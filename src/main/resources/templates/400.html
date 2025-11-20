@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>error 400</title>
-    <!-- Importando o arquivo CSS -->
-    <link rel="stylesheet" href="style.css">
+    <title>Erro 400</title>
+
+    <link rel="stylesheet" th:href="@{/css/error.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/mascote.png}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -31,7 +34,6 @@
                 <h1>Oops!</h1>
                 <h2>A requisição enviada não pôde ser encontrada</h2>
                 <p>Verifique os dados e tente novamente.</p>
-                <button>Mais informações</button>
             </div>
 
             <!-- imagem de erro -->
@@ -43,7 +45,7 @@
 
         <!-- Rodapé com crédito -->
         <footer>
-            <p>designed by Motion Mood © 2025</p>
+            <p>© 2025 Motion — Todos os direitos reservados</p>
         </footer>
     </div>
 </body>

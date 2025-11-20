@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link rel="stylesheet" th:href="@{/css/home_tarde.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/mascote.png}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div class="menu-overlay" id="menu-overlay"></div>
+
+<header class="header">
+    <img th:src="@{/images/logo.png}" alt="Logo Motion" width="65" height="55">
+
+    <nav class="navbar">
+        <a th:href="@{/inicial}">Página Inicial</a>  <!--serve para ir para a pág. inicial com o usuário logado, dessa forma vai apenas para pág. inicial normal e desloga automaticamente o usuário -->
+        <a th:href="@{/logout}">Sair →</a>
+    </nav>
+</header>
+
+<section class="banner">
+    <img th:src="@{/images/tarde.png}" alt="banner" width="1450" height="250">
+</section>
+
+<h1 class="saudacao" id="saudacao">Bem Vindo!</h1>
+
+<!-- ====== PRIMEIRA LINHA DE CARDS ====== -->
+<div class="cards-container">
+
+    <!-- Calendário Anual -->
+    <a th:href="@{/calendario-anual}" class="card-link">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Calendário Anual</h3>
+                <div class="card-icon">
+                    <i class="far fa-calendar-alt"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <img th:src="@{/images/calen.png}" alt="Calendário" class="card-image">
+            </div>
+            <div class="card-footer">
+                <span class="card-badge">Organização</span>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </div>
+        </div>
+    </a>
+
+    <!-- Minhas Preferências -->
+    <a th:href="@{/preferencias}" class="card-link">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Minhas Preferências</h3>
+                <div class="card-icon">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <img th:src="@{/images/pref.png}" alt="Preferências" class="card-image">
+            </div>
+            <div class="card-footer">
+                <span class="card-badge">Personalização</span>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </div>
+        </div>
+    </a>
+
+    <a th:href="@{/ia}" class="card-link">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Assistente IA</h3>
+                <div class="card-icon">
+                    <i class="fa-solid fa-message"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <img th:src="@{/images/ia.png}" alt="Emoções" class="card-image">
+            </div>
+            <div class="card-footer">
+                <span class="card-badge">Bem-estar</span>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </div>
+        </div>
+    </a>
+
+    <!-- Registro de Emoção -->
+    <a th:href="@{/registro}" class="card-link">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Registro de Emoção</h3>
+                <div class="card-icon">
+                    <i class="far fa-smile"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <img th:src="@{/images/emoç.png}" alt="Emoções" class="card-image">
+            </div>
+            <div class="card-footer">
+                <span class="card-badge">Bem-estar</span>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </div>
+        </div>
+    </a>
+
+</div>
+
+<!-- ====== SEGUNDA LINHA DE CARDS ====== -->
+<div class="cards-container">
+
+    <!-- Bloco de Notas -->
+    <a th:href="@{/notas}" class="card-link">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Bloco de Notas</h3>
+                <div class="card-icon">
+                    <i class="far fa-edit"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <img th:src="@{/images/notas.png}" alt="Notas" class="card-image">
+            </div>
+            <div class="card-footer">
+                <span class="card-badge">Produtividade</span>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </div>
+        </div>
+    </a>
+
+    <!-- Calendário Mensal -->
+    <a th:href="@{/calendario}" class="card-link">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Calendário Mensal</h3>
+                <div class="card-icon">
+                    <i class="far fa-calendar"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" alt="Calendário Mensal" class="card-image">
+            </div>
+            <div class="card-footer">
+                <span class="card-badge">Planejamento</span>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </div>
+        </div>
+    </a>
+
+    <!-- Registro Diário -->
+    <a th:href="@{/registro-diario}" class="card-link">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Mudar</h3>
+                <div class="card-icon">
+                    <i class="far fa-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <img th:src="@{/images/emoc.png}" alt="Registro" class="card-image">
+            </div>
+            <div class="card-footer">
+                <span class="card-badge" style="background-color: #b28ecd; color: white;">Novo</span>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </div>
+        </div>
+    </a>
+
+    <!-- Perfil -->
+    <a th:href="@{/perfil}" class="card-link">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Perfil</h3>
+                <div class="card-icon">
+                    <i class="far fa-user"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <img th:src="@{/images/perfil.png}" alt="Perfil" class="card-image">
+            </div>
+            <div class="card-footer">
+                <span class="card-badge">Conta</span>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </div>
+        </div>
+    </a>
+
+</div>
+
+<footer>
+    © 2025 Motion — Todos os direitos reservados
+</footer>
+
+<script th:src="@{/js/home_tarde.js}"></script>
+</body>
+</html>

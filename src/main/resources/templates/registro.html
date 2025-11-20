@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Humor</title>
+
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/mascote.png}">
+
+    <!-- Corrigidos para Thymeleaf -->
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap}">
+</head>
+
+<body>
+<div class="container">
+    <h1>Como foi seu dia?</h1>
+
+    <form method="POST" action="/registrar">
+
+        <!-- HUMOR -->
+        <section class="topico">
+            <h2>Humor</h2>
+            <div class="moods">
+                <label class="mood"><input type="radio" name="humor" value="Calmo" required><span>😌 Calmo</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Feliz"><span>😊 Feliz</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Triste"><span>😢 Triste</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Bravo"><span>😠 Bravo</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Desapontado"><span>😞 Desapontado</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Preocupado"><span>😟 Preocupado</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Assustado"><span>😨 Assustado</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Frustrado"><span>😤 Frustrado</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Estressado"><span>😫 Estressado</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Enjoado"><span>🤢 Enjoado</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Pensativo"><span>🤔 Pensativo</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Animado"><span>😆 Animado</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Envergonhado"><span>🤭 Envergonhado</span></label>
+                <label class="mood"><input type="radio" name="humor" value="Tedioso"><span>🙄 Tedioso</span></label>
+            </div>
+            <textarea name="texto_humor" placeholder="Deseja comentar algo sobre seu humor hoje?"></textarea>
+        </section>
+
+        <!-- HOBBIES -->
+        <section class="topico">
+            <h2>Hobbies e Lazer</h2>
+            <p>Selecione as atividades que você praticou hoje:</p>
+
+            <div class="moods">
+                <label class="mood"><input type="checkbox" name="hobbies" value="Leitura"><span>📚 Leitura</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Corrida"><span>🏃‍♂️ Corrida</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Musculação"><span>🏋️‍♀️ Musculação</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Yoga"><span>🧘‍♀️ Yoga</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Meditação"><span>🧘‍♂️ Meditação</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Música"><span>🎵 Música</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Filmes"><span>🎬 Filmes/Séries</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Videogame"><span>🎮 Jogos</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Culinária"><span>🍳 Culinária</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Passeio"><span>🚶‍♀️ Passeio</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Amigos"><span>👥 Amigos & Familia</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Arte"><span>🎨 Arte</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Artesanato"><span>🧵 Artesanato</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Dança"><span>💃 Dança</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Jardinagem"><span>🌿 Jardinagem</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Fotografia"><span>📸 Fotografia</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Escrita"><span>✍️ Escrita</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Pintura"><span>🖌️ Pintura</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Religião"><span>⛪ Religião</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Voluntariado"><span>💖 Voluntariado</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Pets"><span>🐶 Tempo com pets</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Jogos de tabuleiro"><span>🎲 Jogos de tabuleiro</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Visitar museus"><span>🏛️ Visitar museus</span></label>
+                <label class="mood"><input type="checkbox" name="hobbies" value="Exploração"><span>🧭 Exploração</span></label>
+            </div>
+
+            <textarea name="texto_hobbies" placeholder="Quer comentar algo sobre suas atividades de lazer? (opcional)"></textarea>
+        </section>
+
+        <!-- AMBIENTE -->
+        <section class="topico">
+            <h2>Ambiente</h2>
+            <p>Selecione os lugares onde passou o dia:</p>
+            <div class="moods">
+
+                <label class="mood"><input type="checkbox" name="ambiente" value="Casa"><span>🏠 Casa</span></label>
+                <label class="mood"><input type="checkbox" name="ambiente" value="Trabalho"><span>💼 Trabalho</span></label>
+                <label class="mood"><input type="checkbox" name="ambiente" value="Escola"><span>🏫 Escola</span></label>
+                <label class="mood"><input type="checkbox" name="ambiente" value="Faculdade"><span>🎓 Faculdade</span></label>
+                <label class="mood"><input type="checkbox" name="ambiente" value="Academia"><span>🏋️‍♀️ Academia</span></label>
+                <label class="mood"><input type="checkbox" name="ambiente" value="Parque"><span>🌲 Parque</span></label>
+                <label class="mood"><input type="checkbox" name="ambiente" value="Shopping"><span>🛍️ Shopping</span></label>
+                <label class="mood"><input type="checkbox" name="ambiente" value="Praia"><span>🏖️ Praia</span></label>
+                <label class="mood"><input type="checkbox" name="ambiente" value="Outro"><span>🌍 Outro</span></label>
+
+            </div>
+
+            <textarea name="texto_ambiente" placeholder="Quer comentar algo sobre o ambiente de hoje? (opcional)"></textarea>
+        </section>
+
+        <!-- ALIMENTAÇÃO -->
+        <section class="topico">
+            <h2>Alimentação</h2>
+            <p>Como foi sua alimentação hoje?</p>
+
+            <div class="moods">
+                <label class="mood"><input type="checkbox" name="alimentacao" value="Saudável"><span>🥗 Saudável</span></label>
+                <label class="mood"><input type="checkbox" name="alimentacao" value="Industrializada"><span>🥫 Industrializada</span></label>
+                <label class="mood"><input type="checkbox" name="alimentacao" value="Fast food"><span>🍔 Fast food</span></label>
+                <label class="mood"><input type="checkbox" name="alimentacao" value="Doce"><span>🍰 Doces</span></label>
+                <label class="mood"><input type="checkbox" name="alimentacao" value="Pouco"><span>🥄 Pouca alimentação</span></label>
+                <label class="mood"><input type="checkbox" name="alimentacao" value="Equilibrada"><span>🍱 Equilibrada</span></label>
+            </div>
+
+            <textarea name="texto_alimentacao" placeholder="Quer comentar algo sobre sua alimentação hoje? (opcional)"></textarea>
+        </section>
+
+        <!-- HIDRATAÇÃO -->
+        <section class="topico">
+            <h2>Hidratação</h2>
+
+            <div class="moods">
+                <label class="mood"><input type="radio" name="hidratacao" value="Pouca água"><span>💧 Pouca água</span></label>
+                <label class="mood"><input type="radio" name="hidratacao" value="Regular"><span>💧💧 Regular</span></label>
+                <label class="mood"><input type="radio" name="hidratacao" value="Boa"><span>💧💧💧 Boa</span></label>
+                <label class="mood"><input type="radio" name="hidratacao" value="Excelente"><span>💧💧💧💧 Excelente</span></label>
+                <label class="mood"><input type="radio" name="hidratacao" value="Outras bebidas"><span>🥤 Outras bebidas</span></label>
+            </div>
+
+            <textarea name="texto_hidratacao" placeholder="Quer comentar algo sobre sua hidratação hoje? (opcional)"></textarea>
+        </section>
+
+        <!-- SONO -->
+        <section class="topico">
+            <h2>Sono</h2>
+
+            <div class="moods">
+                <label class="mood"><input type="radio" name="sono" value="Insônia"><span>🌙 Insônia</span></label>
+                <label class="mood"><input type="radio" name="sono" value="Poucas horas"><span>⏰ Poucas horas</span></label>
+                <label class="mood"><input type="radio" name="sono" value="Sono leve"><span>😴 Sono leve</span></label>
+                <label class="mood"><input type="radio" name="sono" value="Sono bom"><span>💤 Sono bom</span></label>
+                <label class="mood"><input type="radio" name="sono" value="Sono excelente"><span>🌞 Sono excelente</span></label>
+            </div>
+
+            <textarea name="texto_sono" placeholder="Quer comentar algo sobre seu sono hoje? (opcional)"></textarea>
+        </section>
+
+        <button type="submit" class="botao-salvar">Salvar registro</button>
+    </form>
+</div>
+</body>
+</html>

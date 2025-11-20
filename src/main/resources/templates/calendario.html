@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+          content="Stay organized with our user-friendly Calendar featuring events, reminders, and a customizable interface. Built with HTML, CSS, and JavaScript. Start scheduling today!" />
+    <meta name="keywords" content="calendar, events, reminders, javascript, html, css, open source coding" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/calendario.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/mascote.png}">
+    <title>Calendario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<header class="header">
+    <img th:src="@{/images/logo.png}" alt="Logo Motion" width="65" height="55">
+
+    <nav class="navbar">
+        <a th:href="@{/index}">Home</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="left">
+        <div class="calendar">
+            <div class="month">
+                <i class="fas fa-angle-left prev"></i>
+                <div class="date">Dezembro 2015</div>
+                <i class="fas fa-angle-right next"></i>
+            </div>
+            <div class="weekdays">
+                <div>Sábado</div>
+                <div>Segunda</div>
+                <div>Terça</div>
+                <div>Quarta</div>
+                <div>Quinta</div>
+                <div>Sexta</div>
+                <div>Sábado</div>
+            </div>
+            <div class="days"></div>
+            <div class="goto-today">
+                <div class="goto">
+                    <input type="text" placeholder="mm/yyyy" class="date-input" />
+                    <button class="goto-btn">Vá</button>
+                </div>
+                <button class="today-btn">Hoje</button>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="today-date">
+            <div class="event-day">Quarta</div>
+            <div class="event-date">12 de dezembro</div>
+        </div>
+        <div class="events"></div>
+        <div class="add-event-wrapper">
+            <div class="add-event-header">
+                <div class="title">Adicione Notas</div>
+                <i class="fas fa-times close"></i>
+            </div>
+            <div class="add-event-body">
+                <div class="add-event-input">
+                    <input type="text" placeholder="Adicione uma nota" class="event-name" />
+                </div>
+                <div class="add-event-input">
+                    <input type="text" placeholder="Horário de inicío" class="event-time-from" />
+                </div>
+                <div class="add-event-input">
+                    <input type="text" placeholder="Horário de fim" class="event-time-to" />
+                </div>
+            </div>
+            <div class="add-event-footer">
+                <button class="add-event-btn">Adicione Nota</button>
+            </div>
+        </div>
+    </div>
+    <button class="add-event">
+        <i class="fas fa-plus"></i>
+    </button>
+</div>
+
+<div class="credits">
+    <p>
+        © 2025 Motion — Todos os direitos reservados
+    </p>
+</div>
+
+<script th:src="@{/js/calendario.js}"></script>
+
+</body>
+</html>

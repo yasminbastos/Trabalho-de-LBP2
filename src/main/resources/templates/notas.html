@@ -1,43 +1,47 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Emoções</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Registro de Notas</title>
+
+    <link rel="stylesheet" th:href="@{/css/notas.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/mascote.png}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Cabeçalho -->
-    <header>
-        Registro Diário de Emoções
-    </header>
+<!-- Cabeçalho -->
+<header>
+    Registro Diário de Emoções
+</header>
 
-    <!-- Container das anotações -->
-    <main class="container-anotacoes">
-        <!-- Estrutura de anotação vazia, preenchida pelo Java -->
-        <div class="anotacao-card">
-            <div class="anotacao-summary">
-                <p><strong>Emoção:</strong> <span class="emocao"></span></p>
-                <p class="resumo"></p>
-            </div>
-            <button class="btn-expand">Ver Mais</button>
-            <div class="anotacao-full">
-                <!-- Conteúdo completo será inserido pelo Java -->
-            </div>
+<!-- Container das anotações -->
+<main class="container-anotacoes">
+    <!-- Estrutura de anotação vazia, preenchida pelo Java -->
+    <div class="anotacao-card">
+        <div class="anotacao-summary">
+            <p><strong>Emoção:</strong> <span class="emocao"></span></p>
+            <p class="resumo"></p>
         </div>
-
-        <!-- Novas anotações serão inseridas dinamicamente via Java -->
-    </main>
-
-    <!-- Botão para adicionar nova anotação -->
-    <div class="action-buttons">
-        <button>Adicionar Anotação</button>
+        <button class="btn-expand">Ver Mais</button>
+        <div class="anotacao-full">
+            <!-- Conteúdo completo será inserido pelo Java -->
+        </div>
     </div>
 
-    <!-- Rodapé -->
-    <footer>
-        &copy; 2025 Motion Mood
-    </footer>
+    <!-- Novas anotações serão inseridas dinamicamente via Java -->
+</main>
+
+<!-- Botão para adicionar nova anotação -->
+<div class="action-buttons">
+    <button>Adicionar Anotação</button>
+</div>
+
+<!-- Rodapé -->
+<footer>
+    &copy; 2025 Motion Mood
+</footer>
 </body>
 </html>

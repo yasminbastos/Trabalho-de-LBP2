@@ -1,16 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <link rel="stylesheet" th:href="@{/css/home.css}">
-    <link rel="icon" type="image/png" href="/images/mascote.png">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Motion - Carregando...</title>
+
+    <!-- Correção AQUI -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          font-family: "Poppins", sans-serif;
+          background: linear-gradient(#d8b4f8, #b38add);
+          color: #3a2b5a;
+          font-size: 1.5rem;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h1>Bem-vindo <span th:text="${nome}">Usuário</span></h1>
-    <a class="btn" th:href="@{/logout}">Fazer Logout</a>
-    <a class="btn" th:href="@{/perfil}">Perfíl</a>
-</div>
+<p>Carregando sua página do dia... ☀️🌇🌙</p>
+
+<script>
+    const agora = new Date();
+    const hora = agora.getHours();
+
+    if (hora >= 5 && hora < 12) {
+      window.location.href = "/manha";
+    }
+    else if (hora >= 12 && hora < 18) {
+      window.location.href = "/tarde";
+    }
+    else {
+      window.location.href = "/noite";
+    }
+</script>
 </body>
 </html>
