@@ -1,0 +1,165 @@
+
+:root {
+ --bg-top: #d9a3e4;
+ --bg-bottom: #cda6ff;
+ --primary: #ad61da;
+ --accent: #deceec;
+ --button: #7946a8;
+ --button-dark: #6a2f91;
+ --text: #111;
+}
+
+
+body {
+ margin: 0;
+ font-family: 'Poppins', sans-serif;
+ color: var(--text);
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+ background: linear-gradient(
+   180deg,
+   var(--bg-top) 0%,
+   #c685d8 10%,
+   #916cad 70%,
+   #6d3d7e 110%,
+   #9152a7 110%,
+   var(--bg-bottom) 100%
+ );
+ display: flex;
+ align-items: center;
+ justify-content: center;
+
+
+ min-height: 100vh;
+}
+
+
+.frame {
+ background-color: #fff;
+ width: 420px;
+ border-radius: 25px;
+ padding: 40px 35px;
+ box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+ text-align: left;
+ animation: fadeIn 0.6s ease-in-out;
+}
+
+
+h2 {
+   color: #4b3b5a;
+   text-align: center;
+   font-size: 1.5rem;
+   margin-bottom: 25px;
+}
+
+
+
+
+input[type="checkbox"] {
+   accent-color: #9849bd;
+   transform: scale(1.2);
+   margin-right: 10px;
+   cursor: pointer;
+}
+
+
+label {
+   font-size: 1rem;
+   color: #5a4c64;
+   cursor: pointer;
+}
+
+
+label:hover {
+   color: #c292d8;
+}
+
+
+input[type="text"] {
+   width: 100%;
+   padding: 10px 14px;
+   border-radius: 12px;
+   border: 1px solid #e0cce1;
+   margin-top: 8px;
+   font-size: 0.95rem;
+   color: #4b3b5a;
+   outline: none;
+   transition: 0.3s ease;
+}
+
+
+input[type="text"]:focus {
+   border-color: #e8abeb;
+   box-shadow: 0 0 5px rgba(247, 168, 184, 0.4);
+}
+
+
+.buttons {
+   text-align: center;
+   margin-top: 25px;
+}
+
+
+.btn {
+   background-color: #b37bd3;
+   border: none;
+   border-radius: 20px;
+   color: white;
+   padding: 12px 28px;
+   font-size: 1rem;
+   cursor: pointer;
+   font-weight: 500;
+   transition: all 0.3s ease;
+}
+
+
+.btn:hover {
+   background-color: #b37bd3;
+   transform: scale(1.05);
+}
+
+
+@keyframes fadeIn {
+   from { opacity: 0; transform: translateY(10px); }
+   to { opacity: 1; transform: translateY(0); }
+}
+
+
+@media (max-width: 500px) {
+   .frame {
+       width: 85%;
+       padding: 30px 25px;
+   }
+
+
+   h2 {
+       font-size: 1.3rem;
+   }
+}
+
+
+.aviso {
+   background-color: #f3e4fd;
+   color: #914aa7;
+   border-radius: 15px;
+   padding: 12px 18px;
+   font-size: 1rem;
+   text-align: center;
+   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+   margin-bottom: 20px;
+   animation: aparecerAviso 0.4s ease forwards;
+}
+
+
+@keyframes aparecerAviso {
+   from {
+       opacity: 0;
+       transform: translateY(-10px);
+   }
+   to {
+       opacity: 1;
+       transform: translateY(0);
+   }
+}
+
+

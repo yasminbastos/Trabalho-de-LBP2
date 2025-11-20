@@ -96,6 +96,7 @@
   font-size: 15px;
   color: #2a0a3a;
   transition: transform .12s ease, box-shadow .12s ease;
+  text-decoration: none;
 }
 
 .buttons {

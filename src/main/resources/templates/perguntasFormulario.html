@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Perguntas do Formulário</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/mascote.png">
+    <link rel="stylesheet" th:href="@{/css/perguntasFormulario.css}">
+</head>
+<body>
+<div class="frame">
+    <!-- Mostra o texto da pergunta -->
+    <h2 th:text="${pergunta.texto}"></h2>
+
+
+    <!-- Formulário -->
+    <form th:action="@{/formulario/pergunta/{i}(i=${indice})}" method="post">
+        <!-- Para cada opção da pergunta cria um checkbox e o checado se estiver 'respostaAnterior -->
+        <div th:each="opcao : ${pergunta.opcoes}">
+            <input type="checkbox" name="resposta" th:value="${opcao}"
+                   th:checked="${respostaAnterior.contains(opcao)}">
+            <label th:text="${opcao}"></label><br>
+        </div>
+
+
+        <!-- Campo 'Outros' se houver -->
+        <div th:if="${pergunta.temCampoOutro}">
+            <label>Outros:</label>
+            <input type="text" name="outro"
+                   th:value="${respostaAnterior.contains('Outros') ? '': ''}">
+        </div>
+
+
+        <!-- Mensagem de aviso caso o usuário tente enviar sem resposta -->
+        <div th:if="${aviso}" class="aviso" th:text="${aviso}"></div>
+
+
+        <!-- Botão de envio -->
+        <div class="buttons">
+            <button type="submit" class="btn"
+                    th:text="${ultimaPagina} ? 'Finalizar' : 'Próxima'"></button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

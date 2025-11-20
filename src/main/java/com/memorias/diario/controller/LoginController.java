@@ -33,7 +33,6 @@ public class LoginController {
             repository.save(novoUsuario);
         }
     }
-
     // Página inicial
     @GetMapping("/")
     public String inicialPage() {
@@ -97,7 +96,7 @@ public class LoginController {
         repository.save(novoUsuario);
 
         model.addAttribute("mensagem", "Cadastro realizado com sucesso!");
-        return "login";
+        return "formularioIntro";  //assim que o usário realizar o cadastro ele será redirecionado para o formulário
     }
 
     // Página home
