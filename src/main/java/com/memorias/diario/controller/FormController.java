@@ -70,7 +70,7 @@ public class FormController {
     @GetMapping
     public String mostrarIntro(HttpSession session) {
         if (session.getAttribute("usuario") == null){  //verifica se algúem acessou a rota "formulario" sem estar logado
-            return "404";
+            return "401";
         }
         return "formularioIntro";
     }
@@ -82,7 +82,7 @@ public class FormController {
                                   @ModelAttribute("respostas") Map<Integer, List<String>> respostas) {
 
        if (session.getAttribute("usuario") == null){
-           return "404";
+           return "401";
        }
         if (indice < 0 || indice >= perguntas.size()) { //verificação para checar se o índice é válido, se não vai para o fim
             return "redirect:/formulario/fim";
@@ -150,7 +150,7 @@ public class FormController {
                              HttpSession session) {
 
         if (session.getAttribute("usuario") == null) {
-            return "404";
+            return "401";
         }
 
         model.addAttribute("respostas", respostas);
