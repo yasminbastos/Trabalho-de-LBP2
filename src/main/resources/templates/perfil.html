@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfíl</title>
-    <!-- Atualizado para Spring Boot -->
+    <title>Perfil - Memórias Diário</title>
     <link rel="stylesheet" th:href="@{/css/perfil.css}">
     <link rel="stylesheet" th:href="@{/css/responsivo.css}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
     <link rel="icon" type="image/png" href="/images/mascote.png">
 </head>
 
@@ -15,21 +15,101 @@
 <!-- ===== ===== Body Main-Background ===== ===== -->
 <span class="main_bg"></span>
 
+<!-- ===== ===== Header ===== ===== -->
+<header class="main-header">
+    <div class="header-container">
+        <div class="logo">
+            <a th:href="@{/home}">
+                <img th:src="@{/images/logo.png}" alt="Logo Motion" width="65" height="55">
+            </a>
+        </div>
+
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="/home" class="nav-link">
+                        <i class="ri-home-4-line"></i>
+                        <span>Início</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/calendario" class="nav-link">
+                        <i class="ri-calendar-2-line"></i>
+                        <span>Calendário</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/perfil" class="nav-link">
+                        <i class="ri-user-3-line"></i>
+                        <span>Perfil</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <div class="user-menu">
+                <div class="user-info">
+                    <img th:src="${fotoPerfil != null} ? ${fotoPerfil} : '/images/icone.png'" alt="Perfil" class="user-avatar">
+                    <span class="user-name" th:text="${usuario}">Usuário</span>
+                    <i class="ri-arrow-down-s-line"></i>
+                </div>
+                <div class="dropdown-menu">
+                    <a href="/perfil" class="dropdown-item">
+                        <i class="ri-user-3-line"></i>
+                        Meu Perfil
+                    </a>
+                    <a href="/configuracoes" class="dropdown-item">
+                        <i class="ri-settings-3-line"></i>
+                        Configurações
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="/logout" class="dropdown-item logout">
+                        <i class="ri-logout-box-r-line"></i>
+                        Sair
+                    </a>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
 <!-- ===== ===== Main-Container ===== ===== -->
 <div class="container">
 
     <!-- ===== ===== User Main-Profile ===== ===== -->
     <section class="userProfile card">
         <div class="profile">
-            <figure><img src="images/icone.png" alt="profile" width="250px" height="250px"></figure>
+            <figure>
+                <img id="profileImage" th:src="${fotoPerfil != null} ? ${fotoPerfil} : '/images/icone.png'" alt="profile" width="250px" height="250px">
+                <div class="edit-overlay" onclick="document.getElementById('uploadPhoto').click()">
+                    <i class="ri-camera-fill"></i>
+                    <span>Alterar foto</span>
+                </div>
+            </figure>
+            <form id="uploadForm" th:action="@{/upload-foto}" method="post" enctype="multipart/form-data" style="display: none;">
+                <input type="file" id="uploadPhoto" name="foto" accept="image/*" onchange="uploadFoto(this.files[0])">
+            </form>
+        </div>
+        <div class="profile-actions">
+            <button class="edit-btn" onclick="window.location.href='/editar-perfil'">
+                <i class="ri-edit-2-line"></i> Editar Perfil
+            </button>
         </div>
     </section>
 
     <!-- ===== ===== Work & Skills Section ===== ===== -->
     <section class="work_skills card">
         <div class="skills">
-            <h1 class="heading">Gráfico de Humor</h1>
-            <center><img src="images/grafico.png" alt="profile" width="420px" height="300px"></center>
+            <h1 class="heading">Relatório Semanal de Emoções</h1>
+            <div class="emotion-chart">
+                <canvas id="emotionChart" width="420" height="300"></canvas>
+            </div>
         </div>
     </section>
 
@@ -37,26 +117,20 @@
     <section class="userDetails card">
         <div class="userName">
             <h1><span th:text="${usuario}">Usuário</span></h1>
-            <p>Designer Gráfica</p>
+            <p th:text="${profissao != null} ? ${profissao} : 'Profissão não informada'">Designer Gráfica</p>
         </div>
 
         <div class="rank">
             <h1 class="heading">Dias de Uso</h1>
-            <span>86 dias</span>
-            <div class="rating">
-                <i class="ri-star-fill rate"></i>
-                <i class="ri-star-fill rate"></i>
-                <i class="ri-star-fill rate"></i>
-                <i class="ri-star-fill rate"></i>
-                <i class="ri-star-fill rate underrate"></i>
-            </div>
+            <span th:text="${diasUso != null} ? ${diasUso} + ' dias' : '0 dias'">86 dias</span>
+
         </div>
 
         <div class="btns">
             <ul>
                 <li class="sendMsg active">
-                    <i class="ri-check-fill ri"></i>
-                    <a href="#">Registe seu humor</a>
+                    <i class="ri-emotion-happy-fill ri"></i>
+                    <a href="/registro">Registrar meu humor</a>
                 </li>
             </ul>
         </div>
@@ -68,7 +142,7 @@
             <ul>
                 <li class="about active">
                     <i class="ri-user-3-fill ri"></i>
-                    <span>Informação do Usuário</span>
+                    <span>Informações do Usuário</span>
                 </li>
             </ul>
         </div>
@@ -77,12 +151,12 @@
             <ul>
                 <li class="phone">
                     <h1 class="label">Telefone:</h1>
-                    <span class="info">+11 4002-8922</span>
+                    <span class="info" th:text="${telefone != null} ? ${telefone} : 'Não informado'">+11 4002-8922</span>
                 </li>
                 <br>
                 <li class="address">
-                    <h1 class="label">Estado Cívil:</h1>
-                    <span class="info">Casada</span>
+                    <h1 class="label">Estado Civil:</h1>
+                    <span class="info" th:text="${estadoCivil != null} ? ${estadoCivil} : 'Não informado'">Casada</span>
                 </li>
                 <br>
                 <li class="email">
@@ -92,13 +166,120 @@
                 <br>
                 <li class="email">
                     <h1 class="label">Estado:</h1>
-                    <span class="info">São Paulo, SP</span>
+                    <span class="info" th:text="${estado != null} ? ${estado} : 'Não informado'">São Paulo, SP</span>
+                </li>
+                <br>
+                <li class="email">
+                    <h1 class="label">Cidade:</h1>
+                    <span class="info" th:text="${cidade != null} ? ${cidade} : 'Não informada'">São Paulo</span>
+                </li>
+                <br>
+                <li class="email">
+                    <h1 class="label">Data de Nascimento:</h1>
+                    <span class="info" th:text="${dataNascimento != null} ? ${dataNascimento} : 'Não informada'">15/05/1990</span>
                 </li>
                 <br>
             </ul>
         </div>
     </section>
 </div>
+
+<!-- Script para gráfico de emoções -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Função para upload de foto via AJAX
+    function uploadFoto(file) {
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('foto', file);
+
+        fetch('/upload-foto', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                document.getElementById('profileImage').src = data.caminho;
+                // Atualizar também a foto no header
+                document.querySelector('.user-avatar').src = data.caminho;
+                alert('Foto atualizada com sucesso!');
+            } else {
+                alert('Erro ao atualizar foto: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao atualizar foto');
+        });
+    }
+
+    // Dados para o gráfico de emoções
+    const emotionData = {
+        labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+        datasets: [{
+            label: 'Nível de Bem-estar',
+            data: [7, 5, 6, 8, 4, 9, 7],
+            backgroundColor: 'rgba(154, 68, 208, 0.2)',
+            borderColor: 'rgba(154, 68, 208, 1)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: true
+        }]
+    };
+
+    // Configuração do gráfico
+    const config = {
+        type: 'line',
+        data: emotionData,
+        options: {
+            responsive: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 10,
+                    ticks: {
+                        stepSize: 2
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    };
+
+    // Menu dropdown do usuário
+    document.addEventListener('DOMContentLoaded', function() {
+        const userMenu = document.querySelector('.user-info');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        userMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        // Fechar dropdown ao clicar fora
+        document.addEventListener('click', function() {
+            dropdownMenu.classList.remove('show');
+        });
+
+        // Menu mobile
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('show');
+        });
+
+        // Inicializar o gráfico
+        const ctx = document.getElementById('emotionChart').getContext('2d');
+        new Chart(ctx, config);
+    });
+</script>
 
 </body>
 </html>

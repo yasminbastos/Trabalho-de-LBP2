@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### GRADLE ###
+.gradle/
+**/*.lock
+gradle-app.setting
+
+### DATABASE ###
+database.db
+
+### UPLOADS ###
+src/main/resources/static/uploads/

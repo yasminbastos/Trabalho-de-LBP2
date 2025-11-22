@@ -17,16 +17,23 @@
 <body>
 <!-- Header -->
 <header>
-    <a href="#" class="logo">
-        Motion
+    <a th:href="@{/home}">
+        <img th:src="@{/images/logo.png}" alt="Logo Motion" width="65" height="55">
     </a>
 
     <nav class="navbar">
-        <a href="#home">Home</a>
+        <a href="#home">Início</a>
         <a href="#features">Funcionalidades</a>
         <a href="#reviews">Avaliações</a>
         <a href="#about">Sobre Nós</a>
-        <a class="btn" th:href="@{/login}">Login</a>
+
+        <!-- Quando NÃO estiver logado -->
+        <a class="btn" th:if="${session.usuario == null}" th:href="@{/login}">Login</a>
+
+        <!-- Quando ESTIVER logado -->
+        <span class="btn" th:if="${session.usuario != null}">
+            Olá, <span th:text="${session.usuario}">Usuário</span>
+        </span>
     </nav>
 
     <div id="menu-btn" class="fas fa-bars"></div>
@@ -37,7 +44,9 @@
     <div class="hero-content fade-in">
         <h1>Transforme emoções em <span>autoconhecimento</span></h1>
         <p>Registre seu humor diariamente e descubra padrões que levam ao seu equilíbrio emocional</p>
-        <a th:href="@{/login}" class="cta-button">Comece Agora</a>
+
+        <a th:if="${session.usuario == null}" th:href="@{/login}" class="cta-button">Comece Agora</a>
+        <a th:if="${session.usuario != null}" th:href="@{/home}" class="cta-button">Ir para o painel</a>
     </div>
 </section>
 
@@ -60,7 +69,7 @@
                 <i class="fas fa-chart-line"></i>
             </div>
             <h3>Análise de Padrões</h3>
-            <p>Identifique padrões em seu humor e comportamentos com relatórios visuais detalhados.</p>
+            <p>Identifique padrões em seu humor com relatórios visuais detalhados.</p>
         </div>
 
         <div class="feature-card fade-in">
@@ -68,7 +77,7 @@
                 <i class="fas fa-lightbulb"></i>
             </div>
             <h3>Insights Pessoais</h3>
-            <p>Receba insights personalizados baseados em seus registros para promover autoconhecimento.</p>
+            <p>Receba insights personalizados para promover autoconhecimento.</p>
         </div>
     </div>
 </section>
@@ -84,17 +93,15 @@
             <!-- Review 1 -->
             <div class="swiper-slide">
                 <div class="review-card">
-                    <p class="review-text">"O Motion me ajudou a entender meus ciclos de humor e a identificar gatilhos que eu nem percebia. Minha qualidade de vida melhorou significativamente!"</p>
+                    <p class="review-text">"O Motion me ajudou a entender meus ciclos de humor e a identificar gatilhos que eu nem percebia."</p>
                     <div class="review-author">
                         <div class="author-avatar">RG</div>
                         <div class="author-info">
                             <h4>Rafael Gomes</h4>
                             <p>Usuário há 6 meses</p>
                             <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                             </div>
                         </div>
@@ -105,17 +112,15 @@
             <!-- Review 2 -->
             <div class="swiper-slide">
                 <div class="review-card">
-                    <p class="review-text">"Recomendo muito o Motion! A interface é linda e fácil de usar. Os insights que recebo são sempre muito precisos e me ajudam no meu dia a dia."</p>
+                    <p class="review-text">"Recomendo muito o Motion! A interface é linda e fácil de usar."</p>
                     <div class="review-author">
                         <div class="author-avatar">GM</div>
                         <div class="author-info">
                             <h4>Gaby Macedo</h4>
                             <p>Usuária há 1 ano</p>
                             <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </div>
                         </div>
@@ -126,23 +131,81 @@
             <!-- Review 3 -->
             <div class="swiper-slide">
                 <div class="review-card">
-                    <p class="review-text">"Aplicativo excelente! Nunca consegui manter um diário por muito tempo, mas com o Motion é diferente. A forma como apresenta os dados motiva a continuar."</p>
+                    <p class="review-text">"Aplicativo excelente! Me motivou a manter um diário."</p>
                     <div class="review-author">
                         <div class="author-avatar">MM</div>
                         <div class="author-info">
                             <h4>May Matilde</h4>
                             <p>Usuária há 8 meses</p>
                             <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Review 4 -->
+            <div class="swiper-slide">
+                <div class="review-card">
+                    <p class="review-text">"O site é muito intuitivo e fácil de usar. Recomendo demais!"</p>
+                    <div class="review-author">
+                        <div class="author-avatar">YB</div>
+                        <div class="author-info">
+                            <h4>Yasmin Bastos</h4>
+                            <p>Usuário há 3 meses</p>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 5 -->
+            <div class="swiper-slide">
+                <div class="review-card">
+                    <p class="review-text">"Gostei bastante da experiência. Tudo funciona direitinho e o visual é muito agradável."</p>
+                    <div class="review-author">
+                        <div class="author-avatar">ME</div>
+                        <div class="author-info">
+                            <h4>Maria Eduarda</h4>
+                            <p>Usuário há 7 meses</p>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 6 -->
+            <div class="swiper-slide">
+                <div class="review-card">
+                    <p class="review-text">"Achei excelente! Simples, rápido e prático."</p>
+                    <div class="review-author">
+                        <div class="author-avatar">AC</div>
+                        <div class="author-info">
+                            <h4>Ana Clara</h4>
+                            <p>Usuário há 1 meses</p>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
 
         </div>
 
@@ -155,9 +218,9 @@
     <div class="about-content">
         <div class="about-text">
             <h2>Sobre Nós</h2>
-            <p>Com o intuito de te ajudar na sua jornada de autocontrole e conhecimento pessoal, a Motion é uma plataforma onde você pode realizar anotações diárias sobre seus hábitos e emoções.</p>
-            <p>Nossa missão é fornecer ferramentas que facilitem o autoconhecimento e promovam bem-estar emocional através do registro e análise de padrões comportamentais.</p>
-            <p>Junte-se a milhares de usuários que já transformaram sua relação com as emoções através do Motion.</p>
+            <p>A Motion é uma plataforma onde você pode registrar emoções e hábitos diariamente.</p>
+            <p>Nossa missão é ajudar no autoconhecimento através de análise de padrões comportamentais.</p>
+            <p>Junte-se a milhares de usuários que já transformaram suas emoções com o Motion.</p>
         </div>
         <div class="about-image">
             <img th:src="@{/images/logo.png}" alt="Pessoa meditando">
@@ -171,7 +234,7 @@
 
         <div class="footer-column">
             <h3>Motion</h3>
-            <p>Transforme emoções em autoconhecimento. Registre seu humor e descubra seu equilíbrio.</p>
+            <p>Transforme emoções em autoconhecimento.</p>
             <div class="social-links">
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
@@ -183,11 +246,16 @@
         <div class="footer-column">
             <h3>Links Rápidos</h3>
             <ul class="footer-links">
-                <li><a href="#home">Home</a></li>
+                <li><a href="#home">Início</a></li>
                 <li><a href="#features">Funcionalidades</a></li>
                 <li><a href="#reviews">Avaliações</a></li>
                 <li><a href="#about">Sobre Nós</a></li>
-                <li><a th:href="@{/login}">Login</a></li>
+
+                <!-- Footer também ajustado -->
+                <li th:if="${session.usuario == null}"><a th:href="@{/login}">Login</a></li>
+                <li th:if="${session.usuario != null}">
+                    <span>Olá, <span th:text="${session.usuario}">Usuário</span></span>
+                </li>
             </ul>
         </div>
 
@@ -207,7 +275,7 @@
     </div>
 </footer>
 
-<!-- Scripts externos (não usar th:) -->
+<!-- Scripts externos -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
 <script>

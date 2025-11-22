@@ -1,0 +1,203 @@
+:root {
+  --primary-clr: #7c5998;
+  --secondary-color: #644081;
+  --transition: all 0.3s ease;
+  --anavbar: #e3ddf1;
+  --white: #ffffff;
+}
+
+/* reset básico */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* body e header */
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--anavbar);
+  color: var(--primary-clr);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header / top bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: linear-gradient(135deg, var(--primary-clr) 10%, var(--secondary-color) 90%);
+  color: var(--white);
+  padding: 18px 28px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  z-index: 50;
+  box-shadow: 0 6px 18px rgba(44,20,55,0.12);
+}
+
+.top-bar .logo {
+  font-weight: 700;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.top-bar .navbar a {
+  color: var(--anavbar);
+  text-decoration: none;
+  margin-left: 16px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.top-bar .navbar a.active,
+.top-bar .navbar a:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--white);
+}
+
+/* main container */
+.calendario-anual-container {
+  max-width: 1200px;
+  margin: 120px auto 80px; /* deixa espaço para header fixo */
+  padding: 18px;
+}
+
+/* controles do ano */
+.controle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.controle button {
+  background: var(--white);
+  border: 1px solid rgba(124,89,152,0.15);
+  color: var(--primary-clr);
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 6px 18px rgba(124,89,152,0.06);
+}
+
+.controle button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, var(--primary-clr), var(--secondary-color));
+  color: var(--white);
+  border: none;
+}
+
+.ano-display {
+  font-size: 1.6rem;
+  color: var(--primary-clr);
+  font-weight: 600;
+  padding: 6px 10px;
+}
+
+/* grid dos meses (3 colunas como solicitado) */
+.year-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+/* cartão de mês */
+.month-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 26px rgba(99,69,120,0.08);
+  transition: var(--transition);
+}
+
+.month-card:hover {
+  transform: translateY(-6px);
+}
+
+/* título do mês */
+.month-title {
+  text-align: center;
+  color: var(--secondary-color);
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* cabeçalho dias da semana */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.weekday {
+  font-size: 0.75rem;
+  text-align: center;
+  color: var(--primary-clr);
+  font-weight: 600;
+}
+
+/* dias */
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.day {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-clr);
+  font-size: 0.95rem;
+  border-radius: 8px;
+  user-select: none;
+}
+
+/* células vazias */
+.day.empty {
+  background: transparent;
+  pointer-events: none;
+}
+
+/* dia atual */
+.day.today {
+  background: linear-gradient(180deg, var(--primary-clr), var(--secondary-color));
+  color: var(--white);
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgba(124,89,152,0.22);
+}
+
+/* dias clicáveis (estilo) */
+.day-clickable {
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid rgba(124,89,152,0.08);
+}
+
+.day-clickable:hover {
+  background: linear-gradient(90deg, rgba(124,89,152,0.12), rgba(100,64,129,0.06));
+  transform: translateY(-3px);
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+/* responsividade */
+@media screen and (max-width: 1000px) {
+  .year-grid { grid-template-columns: repeat(2, 1fr); }
+  .calendario-anual-container { margin: 100px 20px; }
+}
+
+@media screen and (max-width: 600px) {
+  .year-grid { grid-template-columns: repeat(1, 1fr); gap: 16px; }
+  .month-card { padding: 10px; }
+  .day { height: 28px; font-size: 0.9rem; }
+}

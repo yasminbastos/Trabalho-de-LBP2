@@ -20,12 +20,19 @@
 
 <body>
 <header class="header">
-    <img th:src="@{/images/logo.png}" alt="Logo Motion" width="65" height="55">
+    <div class="header-left">
+        <a th:href="@{/home}">
+            <img th:src="@{/images/logo.png}" alt="Logo Motion" width="65" height="55">
+        </a>
+
+    </div>
 
     <nav class="navbar">
-        <a th:href="@{/index}">Home</a>
+        <a th:href="@{/calendario_anual}">Calendário Anual</a>
+        <a th:href="@{/index}">Voltar para Home</a>
     </nav>
 </header>
+
 
 <div class="container">
     <div class="left">

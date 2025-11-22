@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil</title>
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
+    <link rel="stylesheet" th:href="@{/css/editar-perfil.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
+    <link rel="icon" type="image/png" href="/images/mascote.png">
+</head>
+
+<body>
+<!-- ===== ===== Body Main-Background ===== ===== -->
+<span class="main_bg"></span>
+
+<!-- ===== ===== Main-Container ===== ===== -->
+<div class="edit-container">
+    <div class="edit-card">
+        <div class="edit-header">
+            <h1>Editar Perfil</h1>
+            <p>Atualize suas informações pessoais</p>
+        </div>
+
+        <form class="edit-form" th:action="@{/atualizar-perfil}" method="post" enctype="multipart/form-data">
+            <div class="form-section">
+                <h2>Informações Básicas</h2>
+
+                <div class="photo-upload">
+                    <div class="photo-preview">
+                        <img id="previewImage" th:src="${fotoPerfil != null} ? ${fotoPerfil} : '/images/icone.png'" alt="Preview">
+                    </div>
+                    <div class="upload-controls">
+                        <label for="fotoPerfil" class="upload-btn">
+                            <i class="ri-camera-fill"></i> Escolher Foto
+                        </label>
+                        <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" onchange="previewImage(event)">
+                        <p>Formatos suportados: JPG, PNG (Máx. 5MB)</p>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" th:value="${usuario}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" th:value="${email}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dataNascimento">Data de Nascimento</label>
+                        <input type="date" id="dataNascimento" name="dataNascimento" th:value="${dataNascimento}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" th:value="${telefone}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="profissao">Profissão</label>
+                        <input type="text" id="profissao" name="profissao" th:value="${profissao}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estadoCivil">Estado Civil</label>
+                        <select id="estadoCivil" name="estadoCivil">
+                            <option value="">Selecione</option>
+                            <option value="Solteiro(a)">Solteiro(a)</option>
+                            <option value="Casado(a)">Casado(a)</option>
+                            <option value="Divorciado(a)">Divorciado(a)</option>
+                            <option value="Viúvo(a)">Viúvo(a)</option>
+                            <option value="União Estável">União Estável</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Localização</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="estado">Estado</label>
+                        <input type="text" id="estado" name="estado" th:value="${estado}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" id="cidade" name="cidade" th:value="${cidade}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" onclick="window.location.href='/perfil'">
+                    Cancelar
+                </button>
+                <button type="submit" class="save-btn">
+                    Salvar Alterações
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const output = document.getElementById('previewImage');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    // Preencher o select de estado civil com o valor atual
+    document.addEventListener('DOMContentLoaded', function() {
+        const estadoCivil = "[[${estadoCivil}]]";
+        if (estadoCivil) {
+            document.getElementById('estadoCivil').value = estadoCivil;
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -132,6 +132,17 @@ public class LoginController {
         return "calendario"; // arquivo calendario.html
     }
 
+    // Calendário Anual
+    @GetMapping("/calendario_anual")
+    public String calendarioAnualPage(HttpSession session, Model model) {
+        String nome = (String) session.getAttribute("usuario");
+        if (nome == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("nome", nome);
+        return "anual"; // arquivo anual.html
+    }
+
     // Logout
     @GetMapping("/logout")
     public String logout(HttpSession session) {

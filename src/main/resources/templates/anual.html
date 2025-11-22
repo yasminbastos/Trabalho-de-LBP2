@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Calendário Anual</title>
+
+    <!-- CSS separado (coloque o arquivo em /static/css/anual.css) -->
+    <link rel="stylesheet" th:href="@{/css/anual.css}">
+</head>
+<body>
+
+<!-- Header simples (mantém consistência com o projeto) -->
+<header class="top-bar">
+    <a th:href="@{/home}">
+        <img th:src="@{/images/logo.png}" alt="Logo Motion" width="65" height="55">
+    </a>
+    <nav class="navbar">
+        <a th:href="@{/calendario}">Calendário Mensal</a>
+        <a th:href="@{/calendario_anual}" class="active">Anual</a>
+        <a th:href="@{/logout}" class="btn">Sair</a>
+    </nav>
+    <div id="menu-btn" class="fas fa-bars" style="display:none"></div>
+</header>
+
+<!-- Controlador do ano -->
+<section class="calendario-anual-container">
+    <div class="controle">
+        <button id="prevYear" aria-label="Ano anterior">‹</button>
+        <div class="ano-display" id="currentYearLabel">2025</div>
+        <button id="nextYear" aria-label="Próximo ano">›</button>
+    </div>
+
+    <!-- grade dos 12 meses -->
+    <main id="yearCalendar" class="year-grid" aria-live="polite"></main>
+</section>
+
+<!-- JS integrado: gera os 12 meses, torna dias clicáveis e redireciona -->
+<script>
+    (function () {
+      const yearLabel = document.getElementById('currentYearLabel');
+      const prevBtn = document.getElementById('prevYear');
+      const nextBtn = document.getElementById('nextYear');
+      const calendarRoot = document.getElementById('yearCalendar');
+
+      const monthNames = [
+        "Janeiro","Fevereiro","Março","Abril","Maio","Junho",
+        "Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"
+      ];
+
+      // ano inicial = ano atual
+      let anoAtual = new Date().getFullYear();
+
+      function gerarAno(ano) {
+        yearLabel.textContent = ano;
+        calendarRoot.innerHTML = ""; // limpa
+
+        for (let m = 0; m < 12; m++) {
+          const mesCard = document.createElement('section');
+          mesCard.className = 'month-card';
+
+          // título do mês
+          const titulo = document.createElement('h3');
+          titulo.className = 'month-title';
+          titulo.textContent = monthNames[m];
+          mesCard.appendChild(titulo);
+
+          // cabeçalho dias da semana (abreviado)
+          const head = document.createElement('div');
+          head.className = 'weekdays';
+          ['D','S','T','Q','Q','S','S'].forEach(w => {
+            const el = document.createElement('div');
+            el.className = 'weekday';
+            el.textContent = w;
+            head.appendChild(el);
+          });
+          mesCard.appendChild(head);
+
+          // container dos dias
+          const days = document.createElement('div');
+          days.className = 'days';
+
+          // primeiro dia da semana (0=Domingo .. 6=Sábado)
+          const firstDay = new Date(ano, m, 1).getDay();
+          const totalDays = new Date(ano, m + 1, 0).getDate();
+
+          // pré-preenchimento vazio
+          for (let i = 0; i < firstDay; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'day empty';
+            days.appendChild(empty);
+          }
+
+          // criar dias
+          for (let d = 1; d <= totalDays; d++) {
+            const cell = document.createElement('div');
+            cell.className = 'day day-clickable';
+            cell.textContent = d;
+
+            // destaque para o dia atual (se for do ano/mês/hoje)
+            const hoje = new Date();
+            if (ano === hoje.getFullYear() && m === hoje.getMonth() && d === hoje.getDate()) {
+              cell.classList.add('today');
+            }
+
+            // clique: redireciona para o calendário mensal com params
+            cell.addEventListener('click', () => {
+              // mes no query deve ser 1-based
+              const url = `/calendario?ano=${ano}&mes=${m + 1}&dia=${d}`;
+              window.location.href = url;
+            });
+
+            days.appendChild(cell);
+          }
+
+          // anexar
+          mesCard.appendChild(days);
+          calendarRoot.appendChild(mesCard);
+        }
+      }
+
+      // controles
+      prevBtn.addEventListener('click', () => {
+        anoAtual--;
+        gerarAno(anoAtual);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        anoAtual++;
+        gerarAno(anoAtual);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // inicializa
+      gerarAno(anoAtual);
+    })();
+</script>
+</body>
+</html>

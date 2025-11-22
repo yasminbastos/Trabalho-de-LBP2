@@ -407,7 +407,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  color: #373c4f;
+  background: linear-gradient(135deg, var(--primary-clr) 10%, var(--secondary-color) 90%);
   border-bottom: 1px solid #f5f5f5;
 }
 .add-event-header .close {

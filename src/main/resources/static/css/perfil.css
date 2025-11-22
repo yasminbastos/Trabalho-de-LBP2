@@ -24,8 +24,8 @@ html {
   --f2-color: #000;
   --f3-color: rgba(0, 0, 0, 0.8);
   --f4-color: rgba(0, 0, 0, 0.6);
-  --f5-color: #cc0000;
-  --f6-color: #f70000;
+  --f5-color: #9a44d0;
+  --f6-color: #7E83C2;
 
   /* =====>>  Background Color  <<===== */
   --bg1-color: #fff;
@@ -40,7 +40,7 @@ html {
     rgba(255, 255, 255, 0.5),
     rgba(255, 255, 255, 0.3)
   );
-  --C-lg-bg: linear-gradient(45deg, #ff3399, #ff9933);
+  --C-lg-bg: linear-gradient(45deg, #9a44d0, #7E83C2);
 
   /* ===== =====>>  Font Size  <<===== =====  */
   --xxxl-fs: 2.2rem;
@@ -85,7 +85,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url(bg.png);
+  background: url(/images/bg.png);
   background-position: left;
   z-index: -1;
   filter: blur(10px);
@@ -97,23 +97,19 @@ body {
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-template-areas:
-    "header header"
     "userProfile userDetails"
     "work_skills timeline_about"
     "work_skills timeline_about";
+  gap: 1.5rem;
   width: 85%;
-  height: 90vh;
   background: var(--glass-bg);
   padding: var(--p-1-5);
-  box-shadow: 0 0 5px #7E83C2, 0 0 25px rgba(0, 0, 0, 0.066);
+  border-radius: 1rem;
+  box-shadow: 0 0 15px rgba(154, 68, 208, 0.3), 0 0 25px rgba(0, 0, 0, 0.066);
   background-color: #fffcfef1;
 }
 
 /* ===== =====>>  Container Cards Grid-Area Css Start  <<===== =====  */
-header {
-  grid-area: header;
-}
-
 .userProfile {
   grid-area: userProfile;
 }
@@ -134,48 +130,96 @@ header {
 .container .card {
   background: var(--glass-bg);
   backdrop-filter: blur(3rem);
-  border-radius: 0.5rem;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
+  border-radius: 0.8rem;
+  box-shadow: 0 0 15px rgba(154, 68, 208, 0.1);
   padding: var(--p-1-5);
-}
-
-/* ===== =====>>  Container Header/Navbar Css  <<===== =====  */
-.container header {
-  padding: 0 var(--p-2-5);
-}
-
-.container header .brandLogo {
-  display: flex;
-  align-items: center;
-}
-
-.container header .brandLogo figure img {
-  width: 3.5rem;
-  height: 3.5rem;
-}
-
-.container header .brandLogo span {
-  font-size: var(--xl-fs);
-  font-weight: 700;
-  margin-left: var(--m-0-5);
+  border: 1px solid rgba(154, 68, 208, 0.1);
 }
 
 /* ===== =====>>  User Main-Profile Css Start  <<===== ===== */
 .container .userProfile {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0;
+  padding: var(--p-1-5);
   background: none;
   backdrop-filter: none;
   box-shadow: none;
+}
+
+.container .userProfile .profile {
+  position: relative;
+  margin-bottom: var(--m-1-5);
+}
+
+.container .userProfile .profile figure {
+  position: relative;
+  display: inline-block;
 }
 
 .container .userProfile .profile figure img {
   width: 20rem;
   height: 20rem;
   border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #9a44d0;
+}
+
+.container .userProfile .profile .edit-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(154, 68, 208, 0.7);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+.container .userProfile .profile figure:hover .edit-overlay {
+  opacity: 1;
+}
+
+.container .userProfile .profile .edit-overlay i {
+  font-size: 2.5rem;
+  margin-bottom: var(--m-0-5);
+}
+
+.container .userProfile .profile .edit-overlay span {
+  font-size: var(--m-fs);
+}
+
+.container .userProfile .profile-actions {
+  width: 100%;
+  text-align: center;
+}
+
+.container .userProfile .edit-btn {
+  background: var(--C-lg-bg);
+  color: white;
+  border: none;
+  padding: var(--p-0-8) var(--p-1-5);
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.container .userProfile .edit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(154, 68, 208, 0.4);
 }
 
 /* ===== =====>>  Work & Skills Css Start  <<===== ===== */
@@ -183,16 +227,15 @@ header {
   padding: var(--p-1-5);
 }
 
-.work_skills .work .heading,
 .work_skills .skills .heading {
   position: relative;
   font-size: var(--xs-fs);
   color: rgba(0, 0, 0, 0.6);
   text-transform: uppercase;
   margin-bottom: var(--m-1-5);
+  text-align: center;
 }
 
-.work_skills .work .heading::before,
 .work_skills .skills .heading::before {
   content: "";
   position: absolute;
@@ -203,76 +246,10 @@ header {
   background: var(--bg6-color);
 }
 
-.work_skills .work .primary,
-.work_skills .work .secondary {
-  position: relative;
-}
-
-.work_skills .work .primary h1,
-.work_skills .work .secondary h1 {
-  font-size: var(--l-fs);
-  color: var(--f3-color);
-  margin-bottom: var(--m-0-6);
-}
-
-.work_skills .work .primary span,
-.work_skills .work .secondary span {
-  position: absolute;
-  top: 0;
-  right: 3rem;
-  font-weight: 700;
-  font-size: var(--s-fs);
-  color: var(--f5-color);
-  background: #ffe6e6;
-  padding: var(--p-0-4) var(--p-1-0);
-  border-radius: 0.4rem;
-}
-
-.work_skills .work .primary p,
-.work_skills .work .secondary p {
-  margin-bottom: var(--m-1-8);
-  font-size: var(--m-fs);
-  color: rgba(0, 0, 0, 0.6);
-  line-height: 1.6rem;
-}
-
-/* =====>>  Skills Bars Css  <<===== */
-.work_skills .skills ul li {
-  position: relative;
-  font-size: var(--m-fs);
-  line-height: 1.8rem;
-  margin: var(--m-0-5);
-  color: var(--f2-color);
-  font-weight: 500;
-}
-
-.work_skills .skills ul li::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  margin: auto;
-  height: 0.2rem;
-  background: var(--bg3-color);
-  animation: skills 8s linear infinite;
-  animation-delay: calc(-2s * var(--i));
-}
-
-@keyframes skills {
-  0% {
-    width: 50%;
-    filter: hue-rotate(180deg);
-  }
-
-  50% {
-    width: 0;
-  }
-
-  100% {
-    width: 50%;
-    filter: hue-rotate(0);
-  }
+.work_skills .emotion-chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ===== =====>>  User Details Css Start  <<===== ===== */
@@ -283,26 +260,7 @@ header {
 
 .userDetails .userName h1 {
   font-size: var(--xxxl-fs);
-}
-
-.userDetails .userName .map {
-  position: absolute;
-  top: 2.5rem;
-  left: 18.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.userDetails .userName .map .ri {
-  margin-right: var(--m-0-3);
-  font-size: var(--m-fs);
-}
-
-.userDetails .userName .map span {
-  font-size: var(--s-fs);
-  color: var(--f3-color);
-  font-weight: 700;
+  color: #9a44d0;
 }
 
 .userDetails .userName p {
@@ -327,6 +285,7 @@ header {
 .userDetails .rank span {
   font-size: var(--xxl-fs);
   font-weight: 700;
+  color: #9a44d0;
 }
 
 .userDetails .rank .rating {
@@ -336,12 +295,12 @@ header {
 }
 
 .userDetails .rank .rating .rate {
-  color: var(--f5-color);
+  color: #9a44d0;
   font-size: var(--l-fs);
 }
 
 .userDetails .rank .rating .underrate {
-  color: var(--f6-color);
+  color: #7E83C2;
 }
 
 .userDetails .btns ul,
@@ -414,6 +373,7 @@ header {
 
 .timeline_about .tabs ul li .ri {
   margin-right: var(--m-0-5);
+  color: #9a44d0;
 }
 
 .timeline_about .tabs ul .active::before {
@@ -425,39 +385,313 @@ header {
   background: var(--bg5-color);
 }
 
-.timeline_about .contact_info .heading,
-.timeline_about .basic_info .heading {
-  font-size: var(--xs-fs);
-  color: var(--f4-color);
-  text-transform: uppercase;
-  margin-bottom: var(--m-1-5);
-}
-
-.timeline_about .contact_info ul,
-.timeline_about .basic_info ul {
-  margin-bottom: var(--m-1-5);
-}
-
-.timeline_about .contact_info ul li,
-.timeline_about .basic_info ul li {
+.timeline_about .contact_Info ul li {
   display: flex;
   margin: var(--m-0-5) 0;
 }
 
-.timeline_about .contact_info ul li h1,
-.timeline_about .basic_info ul li h1 {
+.timeline_about .contact_Info ul li h1 {
   font-weight: 500;
   font-size: var(--m-fs);
-  min-width: 12rem;
+  min-width: 15rem;
+  color: #9a44d0;
 }
 
-.timeline_about .contact_info ul li span,
-.timeline_about .basic_info ul li span {
+.timeline_about .contact_Info ul li span {
   font-size: var(--m-fs);
 }
+/* ===== =====>>  Header Styles  <<===== ===== */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(154, 68, 208, 0.1);
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(154, 68, 208, 0.1);
+}
 
-.timeline_about .contact_info ul .phone span,
-.timeline_about .contact_info ul .email span,
-.timeline_about .contact_info ul .site span {
-  color: var(--f5-color);
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #9a44d0, #7E83C2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Navigation */
+.nav-menu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-list {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.8rem;
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    background: rgba(154, 68, 208, 0.1);
+    color: #9a44d0;
+    transform: translateY(-2px);
+}
+
+.nav-item.active .nav-link {
+    background: linear-gradient(45deg, #9a44d0, #7E83C2);
+    color: white;
+    box-shadow: 0 4px 15px rgba(154, 68, 208, 0.3);
+}
+
+.nav-link i {
+    font-size: 1.4rem;
+}
+
+/* Header Actions */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* User Menu */
+.user-menu {
+    position: relative;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.user-info:hover {
+    background: rgba(154, 68, 208, 0.1);
+    border-color: rgba(154, 68, 208, 0.2);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #9a44d0;
+}
+
+.user-name {
+    font-weight: 500;
+    color: #333;
+    font-size: 1.4rem;
+}
+
+.user-info i {
+    color: #9a44d0;
+    transition: transform 0.3s ease;
+}
+
+.user-menu:hover .user-info i {
+    transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 220px;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    padding: 0.8rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(154, 68, 208, 0.1);
+    z-index: 1001;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 1.5rem;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.4rem;
+}
+
+.dropdown-item:hover {
+    background: rgba(154, 68, 208, 0.1);
+    color: #9a44d0;
+}
+
+.dropdown-item i {
+    font-size: 1.6rem;
+    width: 20px;
+}
+
+.dropdown-item.logout {
+    color: #e74c3c;
+}
+
+.dropdown-item.logout:hover {
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.1);
+    margin: 0.5rem 0;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #9a44d0;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(154, 68, 208, 0.1);
+}
+
+/* Ajuste do container principal para o header */
+.container {
+    margin-top: 80px; /* Espaço para o header fixo */
+}
+
+/* ===== =====>>  Responsive Styles  <<===== ===== */
+@media (max-width: 768px) {
+    .header-container {
+        padding: 1rem;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        transform: translateY(-10px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .nav-menu.show {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .nav-link {
+        justify-content: center;
+        padding: 1rem;
+    }
+
+    .user-name {
+        display: none;
+    }
+
+    .logo-text {
+        font-size: 1.6rem;
+    }
+
+    .container {
+        margin-top: 70px;
+        width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-container {
+        padding: 0.8rem;
+    }
+
+    .logo-text {
+        font-size: 1.4rem;
+    }
+
+    .user-avatar {
+        width: 35px;
+        height: 35px;
+    }
+
+    .container {
+        margin-top: 60px;
+    }
 }
