@@ -22,6 +22,27 @@ let activeDay;
 let month = today.getMonth();
 let year = today.getFullYear();
 
+const humorEventsArr = window.backendHumorEvents ? [...window.backendHumorEvents] : [];
+const eventsArr      = window.backendNoteEvents  ? [...window.backendNoteEvents]  : [];
+
+const moodColors = {
+  "Calmo": "#9c27b0",
+  "Feliz": "#4caf50",
+  "Triste": "#2196f3",
+  "Bravo": "#f44336",
+  "Desapontado": "#607d8b",
+  "Preocupado": "#ffb300",
+  "Assustado": "#3f51b5",
+  "Frustrado": "#e91e63",
+  "Estressado": "#ff5722",
+  "Enjoado": "#4db6ac",
+  "Pensativo": "#8d6e63",
+  "Animado": "#ff9800",
+  "Envergonhado": "#ff6f91",
+  "Tedioso": "#9e9e9e"
+};
+
+
 const months = [
   "Janeiro",
   "Fevereiro",
@@ -37,9 +58,6 @@ const months = [
   "Dezembro",
 ];
 
-const eventsArr = [];
-getEvents();
-console.log(eventsArr);
 
 function initCalendar() {
   const firstDay = new Date(year, month, 1);
@@ -95,6 +113,21 @@ function initCalendar() {
     days += `<div class="day next-date">${j}</div>`;
   }
   daysContainer.innerHTML = days;
+  const dayElements = daysContainer.querySelectorAll(".day");
+  dayElements.forEach((dayEl) => {
+    const dayNumber = Number(dayEl.textContent);
+    const dayObj = humorEventsArr.find(
+      (e) => e.day === dayNumber && e.month === month + 1 && e.year === year
+    );
+    if (dayObj && dayObj.events && dayObj.events.length > 0) {
+      const mood = dayObj.events[0].title;
+      const color = moodColors[mood];
+      if (color) {
+        dayEl.style.setProperty("--event-color", color);
+        dayEl.classList.add("event");
+      }
+    }
+  });
   addListner();
 }
 
@@ -236,7 +269,6 @@ function updateEvents(date) {
         </div>`;
   }
   eventsContainer.innerHTML = events;
-  saveEvents();
 }
 
 addEventBtn.addEventListener("click", () => {
@@ -343,6 +375,22 @@ addEventSubmit.addEventListener("click", () => {
     title: eventTitle,
     time: timeFrom + " - " + timeTo,
   };
+
+  fetch("/calendario/nota", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body:
+      "day=" + encodeURIComponent(activeDay) +
+      "&month=" + encodeURIComponent(month + 1) +
+      "&year=" + encodeURIComponent(year) +
+      "&title=" + encodeURIComponent(eventTitle) +
+      "&timeFrom=" + encodeURIComponent(eventTimeFrom)
+  }).then(r => r.text()).then(txt => {
+    console.log("Resposta salvar nota:", txt);
+  }).catch(err => console.error(err));
+
   console.log(newEvent);
   console.log(activeDay);
   let eventAdded = false;
@@ -437,17 +485,6 @@ document.getElementById("cancelDelete").addEventListener("click", () => {
 
 // fim
 
-function saveEvents() {
-  localStorage.setItem("events", JSON.stringify(eventsArr));
-}
-
-function getEvents() {
-  if (localStorage.getItem("events") === null) {
-    return;
-  }
-  eventsArr.push(...JSON.parse(localStorage.getItem("events")));
-}
-
 function convertTime(time) {
   let timeArr = time.split(":");
   let timeHour = timeArr[0];
@@ -458,9 +495,7 @@ function convertTime(time) {
   return time;
 }
 
-// alterado
 
-// Menu hambúrguer
 const menuIcon = document.getElementById("menu-icon");
 const menu = document.getElementById("menu");
 

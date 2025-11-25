@@ -6,9 +6,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,34 +31,22 @@ public class LoginController {
             repository.save(novoUsuario);
         }
     }
-    // Página inicial
+
     @GetMapping("/")
     public String inicialPage() {
         return "inicial";
     }
 
-    // Página de login
     @GetMapping("/login")
     public String loginPage() {
         return "login";
     }
 
-    // Login do usuário
     @PostMapping("/login")
     public String login(@RequestParam String email,
                         @RequestParam String senha,
                         HttpSession session,
                         Model model) {
-
-        var usuarioExistente = repository.findAllByEmailAndSenha("batata@example.org", "batata");
-
-        if (usuarioExistente.isEmpty()) {
-            var novoUsuario = new Usuario();
-            novoUsuario.setEmail("batata@example.org");
-            novoUsuario.setNome("batata");
-            novoUsuario.setSenha("batata");
-            repository.save(novoUsuario);
-        }
 
         List<Usuario> resultados = repository.findAllByEmailAndSenha(email, senha);
 
@@ -69,6 +55,7 @@ public class LoginController {
 
             session.setAttribute("usuario", usuario.getNome());
             session.setAttribute("email", usuario.getEmail());
+            session.setAttribute("usuarioId", usuario.getId());
 
             return "redirect:/home";
         }
@@ -77,7 +64,6 @@ public class LoginController {
         return "login";
     }
 
-    // Página de cadastro
     @GetMapping("/cadastro")
     public String cadastroPage() {
         return "cadastro";
@@ -96,10 +82,9 @@ public class LoginController {
         repository.save(novoUsuario);
 
         model.addAttribute("mensagem", "Cadastro realizado com sucesso!");
-        return "formularioIntro";  //assim que o usário realizar o cadastro ele será redirecionado para o formulário
+        return "formularioIntro";
     }
 
-    // Página home
     @GetMapping("/home")
     public String homePage(HttpSession session, Model model) {
         String nome = (String) session.getAttribute("usuario");
@@ -110,29 +95,6 @@ public class LoginController {
         return "home";
     }
 
-    //Registro de humor
-    @GetMapping("/registro")
-    public String registroPage(HttpSession session, Model model) {
-        String nome = (String) session.getAttribute("usuario");
-        if (nome == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("nome", nome);
-        return "registro";
-    }
-
-    //Calendário Mensal
-    @GetMapping("/calendario")
-    public String calendarioPage(HttpSession session, Model model) {
-        String nome = (String) session.getAttribute("usuario");
-        if (nome == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("nome", nome);
-        return "calendario"; // arquivo calendario.html
-    }
-
-    // Calendário Anual
     @GetMapping("/calendario_anual")
     public String calendarioAnualPage(HttpSession session, Model model) {
         String nome = (String) session.getAttribute("usuario");
@@ -140,10 +102,9 @@ public class LoginController {
             return "redirect:/login";
         }
         model.addAttribute("nome", nome);
-        return "anual"; // arquivo anual.html
+        return "anual";
     }
 
-    // Logout
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
@@ -157,17 +118,17 @@ public class LoginController {
 
     @GetMapping("/home_manha")
     public String homeManha() {
-        return "manha"; // arquivo: manha.html
+        return "manha";
     }
 
     @GetMapping("/home_tarde")
     public String homeTarde() {
-        return "tarde"; // arquivo: tarde.html
+        return "tarde";
     }
 
     @GetMapping("/home_noite")
     public String homeNoite() {
-        return "noite"; // arquivo: noite.html
+        return "noite";
     }
 
 }

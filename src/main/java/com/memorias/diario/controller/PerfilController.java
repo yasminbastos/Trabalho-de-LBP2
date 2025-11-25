@@ -1,5 +1,9 @@
 package com.memorias.diario.controller;
 
+import com.memorias.diario.models.Perfil;
+import com.memorias.diario.models.Usuario;
+import com.memorias.diario.repositories.PerfilRepository;
+import com.memorias.diario.repositories.UsuariosRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,60 +12,81 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.*;
+import java.util.UUID;
 
 @Controller
 public class PerfilController {
 
-    // Pasta onde as fotos serão salvas
     private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
+
+    private final UsuariosRepository usuariosRepository;
+    private final PerfilRepository perfilRepository;
+
+    public PerfilController(UsuariosRepository usuariosRepository,
+                            PerfilRepository perfilRepository) {
+        this.usuariosRepository = usuariosRepository;
+        this.perfilRepository = perfilRepository;
+    }
+
+    private Usuario getUsuarioLogado(HttpSession session) {
+        Long id = (Long) session.getAttribute("usuarioId");
+        if (id == null) return null;
+        return usuariosRepository.findById(id).orElse(null);
+    }
 
     @GetMapping("/perfil")
     public String mostrarPerfil(HttpSession session, Model model) {
-        String usuario = (String) session.getAttribute("usuario");
-        String email = (String) session.getAttribute("email");
-
-        if (usuario == null || email == null) {
+        Usuario usuario = getUsuarioLogado(session);
+        if (usuario == null) {
             return "redirect:/login";
         }
 
-        // Carregar dados do perfil da sessão
-        model.addAttribute("usuario", usuario);
-        model.addAttribute("email", email);
-        model.addAttribute("telefone", session.getAttribute("telefone"));
-        model.addAttribute("estadoCivil", session.getAttribute("estadoCivil"));
-        model.addAttribute("estado", session.getAttribute("estado"));
-        model.addAttribute("cidade", session.getAttribute("cidade"));
-        model.addAttribute("profissao", session.getAttribute("profissao"));
-        model.addAttribute("dataNascimento", session.getAttribute("dataNascimento"));
-        model.addAttribute("fotoPerfil", session.getAttribute("fotoPerfil"));
+        Perfil perfil = perfilRepository.findByUsuario(usuario)
+                .orElseGet(() -> {
+                    Perfil p = new Perfil();
+                    p.setUsuario(usuario);
+                    p.setDiasUso(1);
+                    return perfilRepository.save(p);
+                });
 
-        // Dias de uso (exemplo)
-        model.addAttribute("diasUso", session.getAttribute("diasUso") != null ?
-                session.getAttribute("diasUso") : 1);
+        model.addAttribute("usuario", usuario.getNome());
+        model.addAttribute("email", usuario.getEmail());
+        model.addAttribute("telefone", perfil.getTelefone());
+        model.addAttribute("estadoCivil", perfil.getEstadoCivil());
+        model.addAttribute("estado", perfil.getEstado());
+        model.addAttribute("cidade", perfil.getCidade());
+        model.addAttribute("profissao", perfil.getProfissao());
+        model.addAttribute("dataNascimento", perfil.getDataNascimento());
+        model.addAttribute("fotoPerfil", perfil.getFotoPerfil());
+        model.addAttribute("diasUso", perfil.getDiasUso());
 
         return "perfil";
     }
 
     @GetMapping("/editar-perfil")
     public String mostrarEditarPerfil(HttpSession session, Model model) {
-        String usuario = (String) session.getAttribute("usuario");
-        String email = (String) session.getAttribute("email");
-
-        if (usuario == null || email == null) {
+        Usuario usuario = getUsuarioLogado(session);
+        if (usuario == null) {
             return "redirect:/login";
         }
 
-        // Carregar dados existentes para o formulário de edição
-        model.addAttribute("usuario", usuario);
-        model.addAttribute("email", email);
-        model.addAttribute("telefone", session.getAttribute("telefone"));
-        model.addAttribute("estadoCivil", session.getAttribute("estadoCivil"));
-        model.addAttribute("estado", session.getAttribute("estado"));
-        model.addAttribute("cidade", session.getAttribute("cidade"));
-        model.addAttribute("profissao", session.getAttribute("profissao"));
-        model.addAttribute("dataNascimento", session.getAttribute("dataNascimento"));
-        model.addAttribute("fotoPerfil", session.getAttribute("fotoPerfil"));
+        Perfil perfil = perfilRepository.findByUsuario(usuario)
+                .orElseGet(() -> {
+                    Perfil p = new Perfil();
+                    p.setUsuario(usuario);
+                    p.setDiasUso(1);
+                    return p;
+                });
+
+        model.addAttribute("usuario", usuario.getNome());
+        model.addAttribute("email", usuario.getEmail());
+        model.addAttribute("telefone", perfil.getTelefone());
+        model.addAttribute("estadoCivil", perfil.getEstadoCivil());
+        model.addAttribute("estado", perfil.getEstado());
+        model.addAttribute("cidade", perfil.getCidade());
+        model.addAttribute("profissao", perfil.getProfissao());
+        model.addAttribute("dataNascimento", perfil.getDataNascimento());
+        model.addAttribute("fotoPerfil", perfil.getFotoPerfil());
 
         return "editar-perfil";
     }
@@ -77,82 +102,52 @@ public class PerfilController {
             @RequestParam(value = "profissao", required = false) String profissao,
             @RequestParam(value = "dataNascimento", required = false) String dataNascimento,
             @RequestParam(value = "fotoPerfil", required = false) MultipartFile fotoPerfil,
-            HttpSession session) throws IOException {
+            HttpSession session) {
 
-        // Atualizar dados na sessão
+        Usuario usuario = getUsuarioLogado(session);
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
+        Perfil perfil = perfilRepository.findByUsuario(usuario)
+                .orElseGet(() -> {
+                    Perfil p = new Perfil();
+                    p.setUsuario(usuario);
+                    p.setDiasUso(1);
+                    return p;
+                });
+
         if (nome != null && !nome.trim().isEmpty()) {
+            usuario.setNome(nome);
             session.setAttribute("usuario", nome);
         }
         if (email != null && !email.trim().isEmpty()) {
+            usuario.setEmail(email);
             session.setAttribute("email", email);
         }
-        session.setAttribute("telefone", telefone);
-        session.setAttribute("estadoCivil", estadoCivil);
-        session.setAttribute("estado", estado);
-        session.setAttribute("cidade", cidade);
-        session.setAttribute("profissao", profissao);
-        session.setAttribute("dataNascimento", dataNascimento);
+        usuariosRepository.save(usuario);
 
-        // Processar upload da foto de perfil
+        perfil.setTelefone(telefone);
+        perfil.setEstadoCivil(estadoCivil);
+        perfil.setEstado(estado);
+        perfil.setCidade(cidade);
+        perfil.setProfissao(profissao);
+        perfil.setDataNascimento(dataNascimento);
+
         if (fotoPerfil != null && !fotoPerfil.isEmpty()) {
             try {
-                // Criar diretório se não existir
                 Files.createDirectories(Paths.get(UPLOAD_DIR));
-
-                // Gerar nome único para o arquivo
-                String nomeArquivo = UUID.randomUUID().toString() +
-                        "_" + fotoPerfil.getOriginalFilename();
-
-                // Salvar arquivo
+                String nomeArquivo = UUID.randomUUID().toString() + "_" + fotoPerfil.getOriginalFilename();
                 Path caminho = Paths.get(UPLOAD_DIR + nomeArquivo);
                 Files.write(caminho, fotoPerfil.getBytes());
-
-                // Salvar caminho relativo na sessão
-                session.setAttribute("fotoPerfil", "/uploads/" + nomeArquivo);
-
+                perfil.setFotoPerfil("/uploads/" + nomeArquivo);
             } catch (IOException e) {
                 System.err.println("Erro ao salvar foto: " + e.getMessage());
             }
         }
 
+        perfilRepository.save(perfil);
+
         return "redirect:/perfil";
-    }
-
-    @PostMapping("/upload-foto")
-    @ResponseBody
-    public Map<String, String> uploadFoto(@RequestParam("foto") MultipartFile foto,
-                                          HttpSession session) {
-        Map<String, String> response = new HashMap<>();
-
-        try {
-            if (foto.isEmpty()) {
-                response.put("status", "error");
-                response.put("message", "Arquivo vazio");
-                return response;
-            }
-
-            // Criar diretório se não existir
-            Files.createDirectories(Paths.get(UPLOAD_DIR));
-
-            // Gerar nome único
-            String nomeArquivo = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
-
-            // Salvar arquivo
-            Path caminho = Paths.get(UPLOAD_DIR + nomeArquivo);
-            Files.write(caminho, foto.getBytes());
-
-            // Atualizar sessão
-            String caminhoRelativo = "/uploads/" + nomeArquivo;
-            session.setAttribute("fotoPerfil", caminhoRelativo);
-
-            response.put("status", "success");
-            response.put("caminho", caminhoRelativo);
-
-        } catch (IOException e) {
-            response.put("status", "error");
-            response.put("message", "Erro ao salvar arquivo: " + e.getMessage());
-        }
-
-        return response;
     }
 }

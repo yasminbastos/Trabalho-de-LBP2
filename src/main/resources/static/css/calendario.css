@@ -189,8 +189,9 @@ body {
   height: 6px;
   border-radius: 30px;
   transform: translateX(-50%);
-  background-color: var(--primary-clr);
+  background-color: var(--event-color, var(--primary-clr));
 }
+
 .calendar .days .day:hover.event::after {
   background-color: #fff;
 }

@@ -17,7 +17,7 @@
 <div class="container">
     <h1>Como foi seu dia?</h1>
 
-    <form method="POST" action="/registrar">
+    <form method="POST" th:action="@{/registro}">
 
         <!-- HUMOR -->
         <section class="topico">
@@ -147,5 +147,15 @@
         <button type="submit" class="botao-salvar">Salvar registro</button>
     </form>
 </div>
+<script th:inline="javascript">
+    var registroOk = /*[[${registroSucesso}]]*/ false;
+
+    if (registroOk) {
+        alert("Seu registro de hoje foi salvo com sucesso!");
+        window.location.href = /*[[@{/home}]]*/ "/home";
+    }
+</script>
+
+
 </body>
 </html>

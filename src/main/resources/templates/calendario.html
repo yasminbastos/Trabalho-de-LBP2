@@ -99,6 +99,13 @@
     </p>
 </div>
 
+<script th:inline="javascript">
+    const backendHumorEvents = /*[[${eventosRegistroDia}]]*/ [];
+    const backendNoteEvents  = /*[[${notasCalendario}]]*/ [];
+    window.backendHumorEvents = backendHumorEvents;
+    window.backendNoteEvents  = backendNoteEvents;
+</script>
+
 <script th:src="@{/js/calendario.js}"></script>
 
 </body>
