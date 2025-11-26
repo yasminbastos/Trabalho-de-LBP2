@@ -12,36 +12,170 @@
 </head>
 
 <body>
-<!-- Cabeçalho -->
-<header>
-    Registro Diário de Emoções
+<header class="top-bar">
+    <a th:href="@{/home}">
+        <img th:src="@{/images/logo.png}" alt="Logo Motion" width="65" height="55">
+    </a>
+    <nav class="navbar">
+        <a th:href="@{/home}">Home</a>
+        <a th:href="@{/calendario}">Calendário</a>
+    </nav>
+    <div id="menu-btn" class="fas fa-bars" style="display:none"></div>
 </header>
 
-<!-- Container das anotações -->
-<main class="container-anotacoes">
-    <!-- Estrutura de anotação vazia, preenchida pelo Java -->
-    <div class="anotacao-card">
-        <div class="anotacao-summary">
-            <p><strong>Emoção:</strong> <span class="emocao"></span></p>
-            <p class="resumo"></p>
-        </div>
-        <button class="btn-expand">Ver Mais</button>
-        <div class="anotacao-full">
-            <!-- Conteúdo completo será inserido pelo Java -->
-        </div>
-    </div>
+<div class="main-container">
+    <!-- Formulário para adicionar nova nota -->
+    <form class="form-nova-nota" id="formNota">
+        <h2>Nova Nota</h2>
 
-    <!-- Novas anotações serão inseridas dinamicamente via Java -->
-</main>
+        <div class="form-group">
+            <label for="titulo">Título da Nota</label>
+            <input type="text" id="titulo" name="titulo" placeholder="Digite o título da nota" required>
+        </div>
 
-<!-- Botão para adicionar nova anotação -->
-<div class="action-buttons">
-    <button>Adicionar Anotação</button>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="horarioInicio">
+                    <i class="fas fa-clock"></i> Horário de Início
+                </label>
+                <input type="time" id="horarioInicio" name="horarioInicio" required>
+            </div>
+
+            <div class="form-group">
+                <label for="horarioFim">
+                    <i class="fas fa-clock"></i> Horário de Fim
+                </label>
+                <input type="time" id="horarioFim" name="horarioFim" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn">
+            Adicionar Nota
+        </button>
+    </form>
+
+    <!-- Lista de notas -->
+    <section class="lista-notas">
+        <h2>Minhas Notas</h2>
+        <div id="containerNotas">
+            <!-- Estado vazio inicial -->
+            <div class="estado-vazio" id="estadoVazio">
+                <i class="fas fa-sticky-note"></i>
+                <p>Nenhuma nota adicionada ainda.</p>
+                <p>Comece adicionando sua primeira nota!</p>
+            </div>
+        </div>
+    </section>
 </div>
 
-<!-- Rodapé -->
-<footer>
-    &copy; 2025 Motion Mood
-</footer>
+<script>
+    class GerenciadorNotas {
+        constructor() {
+            this.notas = JSON.parse(localStorage.getItem('notas')) || [];
+            this.container = document.getElementById('containerNotas');
+            this.form = document.getElementById('formNota');
+            this.estadoVazio = document.getElementById('estadoVazio');
+
+            this.inicializar();
+        }
+
+        inicializar() {
+            this.form.addEventListener('submit', (e) => this.adicionarNota(e));
+            this.renderizarNotas();
+        }
+
+        adicionarNota(e) {
+            e.preventDefault();
+
+            const titulo = document.getElementById('titulo').value;
+            const horarioInicio = document.getElementById('horarioInicio').value;
+            const horarioFim = document.getElementById('horarioFim').value;
+
+            if (!titulo || !horarioInicio || !horarioFim) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+
+            const nota = {
+                id: Date.now(),
+                titulo: titulo,
+                horarioInicio: horarioInicio,
+                horarioFim: horarioFim,
+                dataCriacao: new Date().toLocaleString('pt-BR')
+            };
+
+            this.notas.unshift(nota);
+            this.salvarNotas();
+            this.renderizarNotas();
+            this.form.reset();
+
+            console.log('Nota adicionada:', nota);
+        }
+
+        excluirNota(id) {
+            if (confirm('Tem certeza que deseja excluir esta nota?')) {
+                this.notas = this.notas.filter(nota => nota.id !== id);
+                this.salvarNotas();
+                this.renderizarNotas();
+                console.log('Nota excluída:', id);
+            }
+        }
+
+        salvarNotas() {
+            localStorage.setItem('notas', JSON.stringify(this.notas));
+        }
+
+        renderizarNotas() {
+            if (this.notas.length === 0) {
+                this.estadoVazio.style.display = 'block';
+                this.container.innerHTML = '';
+                this.container.appendChild(this.estadoVazio);
+                return;
+            }
+
+            this.estadoVazio.style.display = 'none';
+
+            const notasHTML = this.notas.map(nota => `
+                <div class="nota-card" data-id="${nota.id}">
+                    <div class="nota-header">
+                        <h3 class="nota-titulo">${this.escapeHTML(nota.titulo)}</h3>
+                        <div class="nota-horarios">
+                            <div class="horario-item">
+                                <i class="fas fa-play-circle"></i>
+                                <span>Início: ${this.formatarHorario(nota.horarioInicio)}</span>
+                            </div>
+                            <div class="horario-item">
+                                <i class="fas fa-stop-circle"></i>
+                                <span>Fim: ${this.formatarHorario(nota.horarioFim)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nota-actions">
+                        <button type="button" class="btn-excluir" onclick="gerenciador.excluirNota(${nota.id})">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            this.container.innerHTML = notasHTML;
+        }
+
+        formatarHorario(horario) {
+            return horario ? horario.substring(0, 5) : '--:--';
+        }
+
+        escapeHTML(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    }
+
+    // Inicializar o gerenciador quando a página carregar
+    document.addEventListener('DOMContentLoaded', function() {
+        window.gerenciador = new GerenciadorNotas();
+    });
+</script>
 </body>
 </html>

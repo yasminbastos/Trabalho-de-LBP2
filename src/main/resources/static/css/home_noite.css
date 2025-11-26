@@ -340,11 +340,11 @@ footer {
   padding: 25px;
   font-size: 0.85rem;
   opacity: 0.8;
-  color: var(--medium-purple);
+  color: #dbc5e3;
   text-align: center;
   width: 100%;
   margin-top: auto;
-  background-color: rgba(171, 127, 206, 0.1);
+  background-color: linear-gradient(135deg, var(--secondary-color) 0%, #2d0232 100%);
   border-top: 1px solid rgba(171, 127, 206, 0.3);
 }
 

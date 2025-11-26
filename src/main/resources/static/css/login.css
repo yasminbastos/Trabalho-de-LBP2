@@ -7,7 +7,7 @@
 }
 
 body {
-    background: linear-gradient(100deg, #989ddd, #977dff, #ffccf2);
+    background: linear-gradient(135deg, #cd94e3 35%, #834d96 65%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,7 +74,7 @@ input:focus {
 
 
 .btn {
-    background: #8b80cb;
+    background: #834d96;
     color: #fff;
     padding: 12px;
     border-radius: 10px;
@@ -94,10 +94,9 @@ input:focus {
 
 .btn-login:hover,
 .btn-login:focus {
-    background: linear-gradient(90deg, #8b5aa8, #715bcb, #bb8dcb);
+    background: linear-gradient(90deg, #cd94e3, #834d96, #bb8dcb);
     color: #fff;
 }
-
 
 .register {
     margin-top: 20px;

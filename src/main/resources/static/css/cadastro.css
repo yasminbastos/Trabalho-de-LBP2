@@ -3,28 +3,38 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family:'Poppins', sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #7d4ca2, #e48de3);
+    background: linear-gradient(135deg, #cd94e3 35%, #834d96 65%);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-/* Container principal */
+
 .container {
     background: #fff;
     border-radius: 40px;
+    display: flex;
     overflow: hidden;
-    width: 400px;
+    width: 950px;
+    max-width: 95%;
     box-shadow: 0 8px 30px rgba(0,0,0,0.2);
 }
 
-/* Formulário */
+
+.illustration {
+    flex: 1;
+    background: url("../images/logo.png") no-repeat center;
+    background-size: cover;
+}
+
+
 .form-section {
+    flex: 1;
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -34,7 +44,7 @@ body {
 .form-section h2 {
     font-size: 28px;
     margin-bottom: 10px;
-    color: #8d40a6;
+    color: #b67dd9;
 }
 
 .form-section p {
@@ -61,8 +71,10 @@ input:focus {
     border-color: #a64aff;
 }
 
+
+
 .btn {
-    background: #9973d8;
+    background: #834d96;
     color: #fff;
     padding: 12px;
     border-radius: 10px;
@@ -73,21 +85,32 @@ input:focus {
     margin-top: 10px;
 }
 
-.btn:hover {
-    background: #574c9b;
+.btn-login {
+    transition: background 0.5s, color 0.5s;
+}
+.btn-login {
+    transition: background 0.8s ease-in-out, color 0.5s ease-in-out;
 }
 
-.login {
+.btn-login:hover,
+.btn-login:focus {
+    background: linear-gradient(90deg, #cd94e3, #834d96, #bb8dcb);
+    color: #fff;
+}
+
+
+.register {
     margin-top: 20px;
     font-size: 14px;
-    color: #4f53a8;
+    color: #333;
+
 }
 
-.login a {
-    color: #7a2bff;
+.register a {
+    color: #714281;
     text-decoration: none;
     font-weight: bold;
 }
-.login a:hover {
+.register a:hover {
     text-decoration: underline;
 }

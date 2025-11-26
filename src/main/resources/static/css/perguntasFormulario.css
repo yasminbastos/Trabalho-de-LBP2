@@ -16,15 +16,7 @@ body {
  color: var(--text);
  -webkit-font-smoothing: antialiased;
  -moz-osx-font-smoothing: grayscale;
- background: linear-gradient(
-   180deg,
-   var(--bg-top) 0%,
-   #c685d8 10%,
-   #916cad 70%,
-   #6d3d7e 110%,
-   #9152a7 110%,
-   var(--bg-bottom) 100%
- );
+ background: linear-gradient(135deg, #cd94e3 35%, #834d96 65%);
  display: flex;
  align-items: center;
  justify-content: center;

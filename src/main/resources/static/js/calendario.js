@@ -42,7 +42,6 @@ const moodColors = {
   "Tedioso": "#9e9e9e"
 };
 
-
 const months = [
   "Janeiro",
   "Fevereiro",
@@ -57,7 +56,6 @@ const months = [
   "Novembro",
   "Dezembro",
 ];
-
 
 function initCalendar() {
   const firstDay = new Date(year, month, 1);
@@ -113,6 +111,7 @@ function initCalendar() {
     days += `<div class="day next-date">${j}</div>`;
   }
   daysContainer.innerHTML = days;
+
   const dayElements = daysContainer.querySelectorAll(".day");
   dayElements.forEach((dayEl) => {
     const dayNumber = Number(dayEl.textContent);
@@ -271,9 +270,21 @@ function updateEvents(date) {
   eventsContainer.innerHTML = events;
 }
 
+/*
+=======================================================
+ SUBSTITUTO — AGORA O BOTÃO '+' REDIRECIONA PARA /notas
+=======================================================
+*/
+addEventBtn.addEventListener("click", () => {
+  window.location.href = "/notas";
+});
+
+/*
+ANTES era:
 addEventBtn.addEventListener("click", () => {
   addEventWrapper.classList.toggle("active");
 });
+*/
 
 addEventCloseBtn.addEventListener("click", () => {
   addEventWrapper.classList.remove("active");
@@ -428,8 +439,7 @@ addEventSubmit.addEventListener("click", () => {
   }
 });
 
-// alterado
-
+// POPUP DE EXCLUSÃO
 const popup = document.createElement("div");
 popup.classList.add("popup");
 popup.innerHTML = `
@@ -483,8 +493,6 @@ document.getElementById("cancelDelete").addEventListener("click", () => {
   selectedEventTitle = null;
 });
 
-// fim
-
 function convertTime(time) {
   let timeArr = time.split(":");
   let timeHour = timeArr[0];
@@ -494,7 +502,6 @@ function convertTime(time) {
   time = timeHour + ":" + timeMin + " " + timeFormat;
   return time;
 }
-
 
 const menuIcon = document.getElementById("menu-icon");
 const menu = document.getElementById("menu");

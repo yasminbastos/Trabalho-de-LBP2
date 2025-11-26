@@ -75,7 +75,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #e0b9f4;
+  background: linear-gradient(135deg, #cd94e3 35%, #834d96 65%);
 }
 
 /* ===== =====>>  Body Main-Background Css  <<===== =====  */
