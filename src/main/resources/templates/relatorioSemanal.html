@@ -1,0 +1,87 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Relatório Semanal — Registro de Emoções</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/relatorioSemanal.css}">
+    <link rel="icon" type="image/png" href="/images/mascote.png">
+</head>
+<body>
+<div class="page-wrap">
+    <header class="report-header">
+        <div class="header-left">
+            <h1>Relatório Semanal</h1>
+            <p class="subtitle">Resumo das suas emoções desta semana</p>
+        </div>
+        <div class="header-right">
+            <div class="summary-card">
+                <div class="summary-title">Média de intensidade</div>
+                <div class="summary-value" th:text="${mediaIntensidade} + '%'">72%</div>
+            </div>
+            <a th:href="@{/home}" class="btn small">Voltar</a>
+        </div>
+    </header>
+
+    <main class="report-main">
+        <!-- Insights -->
+        <section class="insight">
+            <h2>Insight da semana</h2>
+            <p th:text="${resumoSemana != null ? resumoSemana : 'Nenhum insight disponível por enquanto. Continue registrando!'}">
+                Nenhum insight disponível por enquanto. Continue registrando!
+            </p>
+        </section>
+
+        <!-- Linha do tempo / cards -->
+        <section class="timeline">
+            <h2>Detalhes diários</h2>
+
+            <div class="cards">
+                <div class="card" th:each="dia : ${relatorio}">
+                    <div class="card-top">
+                        <div class="date" th:text="${dia.date}">2025-11-24</div>
+                        <div class="mood" th:text="${dia.humor}">Feliz</div>
+                    </div>
+
+                    <div class="intensity-row">
+                        <div class="label">Intensidade</div>
+                        <div class="bar">
+                            <div class="fill" th:style="'width:' + ${dia.intensidade} + '%'" th:text="${dia.intensidade} + '%'">80%</div>
+                        </div>
+                    </div>
+
+                    <div class="notes">
+                        <div class="label">Notas</div>
+                        <div class="text" th:text="${dia.notas != null ? dia.notas : '—'}">Ouvi muitas músicas boas</div>
+                    </div>
+
+                    <div class="card-actions">
+                        <a th:if="${dia.playlistUrl != null}" th:href="${dia.playlistUrl}" target="_blank" class="btn ghost">Ver playlist</a>
+                        <a th:href="@{/formulario/pergunta/0}" class="btn">Registrar hoje</a>
+                    </div>
+                </div> <!-- /card -->
+            </div> <!-- /cards -->
+        </section>
+
+        <!-- Gráfico compacto (simples): por humor -->
+        <section class="overview">
+            <h2>Distribuição por humor</h2>
+            <div class="legend">
+                <div th:each="entry : ${distribuicaoHumores}">
+                    <div class="legend-item">
+                        <span class="dot" th:style="'background:' + ${entry.cor}"></span>
+                        <span class="label" th:text="${entry.humor} + ' (' + ${entry.qtd} + ')'">Feliz (3)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="report-footer">
+        <small>Relatório gerado automaticamente • Diário das Memórias</small>
+    </footer>
+</div>
+</body>
+</html>

@@ -13,4 +13,8 @@ public interface RegistroDiaRepository extends JpaRepository<RegistroDia, Long> 
     List<RegistroDia> findAllByUsuarioOrderByDataDesc(Usuario usuario);
 
     Optional<RegistroDia> findByUsuarioAndData(Usuario usuario, LocalDate data);
+
+    List<RegistroDia> findAllByUsuarioAndDataBetweenOrderByDataDesc(
+            Usuario usuario, LocalDate inicio, LocalDate fim
+    );
 }
