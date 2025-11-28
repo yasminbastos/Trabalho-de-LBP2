@@ -1,8 +1,8 @@
 package com.memorias.diario.models;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 public class Nota {
@@ -19,6 +19,10 @@ public class Nota {
 
     private LocalDateTime dataCriacao;
 
+    // novos campos
+    private LocalTime horaInicio;
+    private LocalTime horaFim;
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -30,4 +34,10 @@ public class Nota {
 
     public LocalDateTime getDataCriacao() { return dataCriacao; }
     public void setDataCriacao(LocalDateTime dataCriacao) { this.dataCriacao = dataCriacao; }
+
+    public LocalTime getHoraInicio() { return horaInicio; }
+    public void setHoraInicio(LocalTime horaInicio) { this.horaInicio = horaInicio; }
+
+    public LocalTime getHoraFim() { return horaFim; }
+    public void setHoraFim(LocalTime horaFim) { this.horaFim = horaFim; }
 }

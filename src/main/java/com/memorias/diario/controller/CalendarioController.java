@@ -50,24 +50,27 @@ public class CalendarioController {
             Map<String, String> ev = new HashMap<>();
             ev.put("title", r.getHumor() != null ? r.getHumor() : "Sem humor");
             ev.put("time", r.getAnotacoes() != null ? r.getAnotacoes() : "");
-
             obj.put("events", List.of(ev));
+
             eventosRegistro.add(obj);
         }
+
 
         List<Nota> notas = notasRepository.findAllByUsuarioOrderByDataCriacaoDesc(usuario);
         List<Map<String, Object>> eventosNotas = new ArrayList<>();
         for (Nota n : notas) {
-            LocalDate data = n.getDataCriacao().toLocalDate();
+            LocalDateTime dataCriacao = n.getDataCriacao();
+            LocalDate data = dataCriacao.toLocalDate();
 
             Map<String, Object> obj = new HashMap<>();
+            obj.put("id", n.getId()); // tem que ter isso
             obj.put("day", data.getDayOfMonth());
             obj.put("month", data.getMonthValue());
             obj.put("year", data.getYear());
 
             Map<String, String> ev = new HashMap<>();
             ev.put("title", n.getTexto());
-            String time = n.getDataCriacao().toLocalTime()
+            String time = dataCriacao.toLocalTime()
                     .withSecond(0).withNano(0).toString();
             ev.put("time", time);
 
@@ -75,25 +78,13 @@ public class CalendarioController {
             eventosNotas.add(obj);
         }
 
-        for (RegistroDia r : registros) {
-            LocalDate data = r.getData();
-
-            Map<String, Object> obj = new HashMap<>();
-            obj.put("day", data.getDayOfMonth());
-            obj.put("month", data.getMonthValue());
-            obj.put("year", data.getYear());
-
-            Map<String, String> ev = new HashMap<>();
-            ev.put("title", r.getHumor() != null ? r.getHumor() : "Sem humor");
-            ev.put("time", r.getAnotacoes() != null ? r.getAnotacoes() : "");
-
-            obj.put("events", List.of(ev));
-            eventosNotas.add(obj);
-        }
 
         model.addAttribute("nome", usuario.getNome());
-        model.addAttribute("eventosRegistroDia", eventosRegistro); // para cores
-        model.addAttribute("notasCalendario", eventosNotas);       // para lista da direita
+        model.addAttribute("eventosRegistroDia", eventosRegistro); // só para cor
+        model.addAttribute("notasCalendario", eventosNotas);       // lateral
+
+        System.out.println("eventosNotas = " + eventosNotas.size());
+        System.out.println("eventosNotas conteudo = " + eventosNotas);
 
         return "calendario";
     }

@@ -9,13 +9,7 @@ const calendar = document.querySelector(".calendar"),
   eventDay = document.querySelector(".event-day"),
   eventDate = document.querySelector(".event-date"),
   eventsContainer = document.querySelector(".events"),
-  addEventBtn = document.querySelector(".add-event"),
-  addEventWrapper = document.querySelector(".add-event-wrapper "),
-  addEventCloseBtn = document.querySelector(".close "),
-  addEventTitle = document.querySelector(".event-name "),
-  addEventFrom = document.querySelector(".event-time-from "),
-  addEventTo = document.querySelector(".event-time-to "),
-  addEventSubmit = document.querySelector(".add-event-btn ");
+  addEventBtn = document.querySelector(".add-event");
 
 let today = new Date();
 let activeDay;
@@ -24,6 +18,8 @@ let year = today.getFullYear();
 
 const humorEventsArr = window.backendHumorEvents ? [...window.backendHumorEvents] : [];
 const eventsArr      = window.backendNoteEvents  ? [...window.backendNoteEvents]  : [];
+console.log("Humores:", humorEventsArr);
+console.log("Notas:", eventsArr);
 
 const moodColors = {
   "Calmo": "#9c27b0",
@@ -114,6 +110,11 @@ function initCalendar() {
 
   const dayElements = daysContainer.querySelectorAll(".day");
   dayElements.forEach((dayEl) => {
+    // não pinta humor em dias de outro mês
+    if (dayEl.classList.contains("prev-date") || dayEl.classList.contains("next-date")) {
+      return;
+    }
+
     const dayNumber = Number(dayEl.textContent);
     const dayObj = humorEventsArr.find(
       (e) => e.day === dayNumber && e.month === month + 1 && e.year === year
@@ -127,6 +128,7 @@ function initCalendar() {
       }
     }
   });
+
   addListner();
 }
 
@@ -157,35 +159,36 @@ function addListner() {
   const days = document.querySelectorAll(".day");
   days.forEach((day) => {
     day.addEventListener("click", (e) => {
-      getActiveDay(e.target.innerHTML);
-      updateEvents(Number(e.target.innerHTML));
-      activeDay = Number(e.target.innerHTML);
-      days.forEach((day) => {
-        day.classList.remove("active");
-      });
+      const value = Number(e.target.innerHTML);
+      activeDay = value;
+      getActiveDay(value);
+      updateEvents(value);
+
+      days.forEach((d) => d.classList.remove("active"));
+
       if (e.target.classList.contains("prev-date")) {
         prevMonth();
         setTimeout(() => {
-          const days = document.querySelectorAll(".day");
-          days.forEach((day) => {
+          const days2 = document.querySelectorAll(".day");
+          days2.forEach((d) => {
             if (
-              !day.classList.contains("prev-date") &&
-              day.innerHTML === e.target.innerHTML
+              !d.classList.contains("prev-date") &&
+              Number(d.innerHTML) === value
             ) {
-              day.classList.add("active");
+              d.classList.add("active");
             }
           });
         }, 100);
       } else if (e.target.classList.contains("next-date")) {
         nextMonth();
         setTimeout(() => {
-          const days = document.querySelectorAll(".day");
-          days.forEach((day) => {
+          const days2 = document.querySelectorAll(".day");
+          days2.forEach((d) => {
             if (
-              !day.classList.contains("next-date") &&
-              day.innerHTML === e.target.innerHTML
+              !d.classList.contains("next-date") &&
+              Number(d.innerHTML) === value
             ) {
-              day.classList.add("active");
+              d.classList.add("active");
             }
           });
         }, 100);
@@ -221,7 +224,6 @@ dateInput.addEventListener("input", (e) => {
 gotoBtn.addEventListener("click", gotoDate);
 
 function gotoDate() {
-  console.log("here");
   const dateArr = dateInput.value.split("/");
   if (dateArr.length === 2) {
     if (dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length === 4) {
@@ -234,34 +236,58 @@ function gotoDate() {
   alert("Data Inválida");
 }
 
-function getActiveDay(date) {
-  const day = new Date(year, month, date);
+function getActiveDay(dateNumber) {
+  const day = new Date(year, month, dateNumber);
   const dayName = day.toString().split(" ")[0];
   eventDay.innerHTML = dayName;
-  eventDate.innerHTML = date + " " + months[month] + " " + year;
+  eventDate.innerHTML = dateNumber + " " + months[month] + " " + year;
 }
 
-function updateEvents(date) {
+function updateEvents(dateNumber) {
   let events = "";
+
+  // notas
   eventsArr.forEach((event) => {
     if (
-      date === event.day &&
+      dateNumber === event.day &&
       month + 1 === event.month &&
       year === event.year
     ) {
-      event.events.forEach((event) => {
-        events += `<div class="event">
+      event.events.forEach((ev) => {
+        events += `<div class="event" data-id="${event.id}">
             <div class="title">
               <i class="fas fa-circle"></i>
-              <h3 class="event-title">${event.title}</h3>
+              <h3 class="event-title">${ev.title}</h3>
             </div>
             <div class="event-time">
-              <span class="event-time">${event.time}</span>
+              <span class="event-time">${ev.time}</span>
             </div>
         </div>`;
       });
     }
   });
+
+  // humor
+  humorEventsArr.forEach((event) => {
+    if (
+      dateNumber === event.day &&
+      month + 1 === event.month &&
+      year === event.year
+    ) {
+      event.events.forEach((ev) => {
+        events += `<div class="event event-humor">
+            <div class="title">
+              <i class="fas fa-circle"></i>
+              <h3 class="event-title">${ev.title}</h3>
+            </div>
+            <div class="event-time">
+              <span class="event-time">${ev.time || ""}</span>
+            </div>
+        </div>`;
+      });
+    }
+  });
+
   if (events === "") {
     events = `<div class="no-event">
             <h3>Nenhuma Nota</h3>
@@ -270,176 +296,20 @@ function updateEvents(date) {
   eventsContainer.innerHTML = events;
 }
 
-/*
-=======================================================
- SUBSTITUTO — AGORA O BOTÃO '+' REDIRECIONA PARA /notas
-=======================================================
-*/
+// botão de adicionar nota (vai para /notas com a data clicada)
 addEventBtn.addEventListener("click", () => {
-  window.location.href = "/notas";
-});
-
-/*
-ANTES era:
-addEventBtn.addEventListener("click", () => {
-  addEventWrapper.classList.toggle("active");
-});
-*/
-
-addEventCloseBtn.addEventListener("click", () => {
-  addEventWrapper.classList.remove("active");
-});
-
-document.addEventListener("click", (e) => {
-  if (e.target !== addEventBtn && !addEventWrapper.contains(e.target)) {
-    addEventWrapper.classList.remove("active");
-  }
-});
-
-addEventTitle.addEventListener("input", (e) => {
-  addEventTitle.value = addEventTitle.value.slice(0, 60);
-});
-
-function defineProperty() {
-  var osccred = document.createElement("div");
-  osccred.style.position = "absolute";
-  osccred.style.bottom = "0";
-  osccred.style.right = "0";
-  osccred.style.fontSize = "10px";
-  osccred.style.color = "#ccc";
-  osccred.style.fontFamily = "popins";
-  osccred.style.padding = "5px";
-  osccred.style.background = "#fff";
-  osccred.style.borderTopLeftRadius = "5px";
-  osccred.style.borderBottomRightRadius = "5px";
-  osccred.style.boxShadow = "0 0 5px #ccc";
-  document.body.appendChild(osccred);
-}
-
-defineProperty();
-
-addEventFrom.addEventListener("input", (e) => {
-  addEventFrom.value = addEventFrom.value.replace(/[^0-9:]/g, "");
-  if (addEventFrom.value.length === 2) {
-    addEventFrom.value += ":";
-  }
-  if (addEventFrom.value.length > 5) {
-    addEventFrom.value = addEventFrom.value.slice(0, 5);
-  }
-});
-
-addEventTo.addEventListener("input", (e) => {
-  addEventTo.value = addEventTo.value.replace(/[^0-9:]/g, "");
-  if (addEventTo.value.length === 2) {
-    addEventTo.value += ":";
-  }
-  if (addEventTo.value.length > 5) {
-    addEventTo.value = addEventTo.value.slice(0, 5);
-  }
-});
-
-addEventSubmit.addEventListener("click", () => {
-  const eventTitle = addEventTitle.value;
-  const eventTimeFrom = addEventFrom.value;
-  const eventTimeTo = addEventTo.value;
-  if (eventTitle === "" || eventTimeFrom === "") {
-    alert("Por favor preencha todos os campos");
+  if (!activeDay) {
+    alert("Selecione um dia no calendário primeiro.");
     return;
   }
-
-  const timeFromArr = eventTimeFrom.split(":");
-  const timeToArr = eventTimeTo.split(":");
-  if (
-    timeFromArr.length !== 2 ||
-    timeToArr.length !== 2 ||
-    timeFromArr[0] > 23 ||
-    timeFromArr[1] > 59 ||
-    timeToArr[0] > 23 ||
-    timeToArr[1] > 59
-  ) {
-    alert("Formato de hora inválido");
-    return;
-  }
-
-  const timeFrom = convertTime(eventTimeFrom);
-  const timeTo = convertTime(eventTimeTo);
-
-  let eventExist = false;
-  eventsArr.forEach((event) => {
-    if (
-      event.day === activeDay &&
-      event.month === month + 1 &&
-      event.year === year
-    ) {
-      event.events.forEach((event) => {
-        if (event.title === eventTitle) {
-          eventExist = true;
-        }
-      });
-    }
-  });
-  if (eventExist) {
-    alert("Nota já adicionada");
-    return;
-  }
-  const newEvent = {
-    title: eventTitle,
-    time: timeFrom + " - " + timeTo,
-  };
-
-  fetch("/calendario/nota", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body:
-      "day=" + encodeURIComponent(activeDay) +
-      "&month=" + encodeURIComponent(month + 1) +
-      "&year=" + encodeURIComponent(year) +
-      "&title=" + encodeURIComponent(eventTitle) +
-      "&timeFrom=" + encodeURIComponent(eventTimeFrom)
-  }).then(r => r.text()).then(txt => {
-    console.log("Resposta salvar nota:", txt);
-  }).catch(err => console.error(err));
-
-  console.log(newEvent);
-  console.log(activeDay);
-  let eventAdded = false;
-  if (eventsArr.length > 0) {
-    eventsArr.forEach((item) => {
-      if (
-        item.day === activeDay &&
-        item.month === month + 1 &&
-        item.year === year
-      ) {
-        item.events.push(newEvent);
-        eventAdded = true;
-      }
-    });
-  }
-
-  if (!eventAdded) {
-    eventsArr.push({
-      day: activeDay,
-      month: month + 1,
-      year: year,
-      events: [newEvent],
-    });
-  }
-
-  console.log(eventsArr);
-  addEventWrapper.classList.remove("active");
-  addEventTitle.value = "";
-  addEventFrom.value = "";
-  addEventTo.value = "";
-  updateEvents(activeDay);
-  const activeDayEl = document.querySelector(".day.active");
-  if (!activeDayEl.classList.contains("event")) {
-    activeDayEl.classList.add("event");
-  }
+  const selectedDay = activeDay;
+  const selectedMonth = month + 1; // 1-12
+  const selectedYear = year;
+  window.location.href =
+    `/notas?day=${selectedDay}&month=${selectedMonth}&year=${selectedYear}`;
 });
 
-// POPUP DE EXCLUSÃO
+// popup de exclusão
 const popup = document.createElement("div");
 popup.classList.add("popup");
 popup.innerHTML = `
@@ -456,41 +326,42 @@ document.body.appendChild(popup);
 function openPopup() { popup.classList.add("active"); }
 function closePopup() { popup.classList.remove("active"); }
 
-let selectedEventTitle = null;
+let selectedEventId = null;
 
 eventsContainer.addEventListener("click", (e) => {
   const eventEl = e.target.closest(".event");
   if (!eventEl) return;
+  if (eventEl.classList.contains("event-humor")) return;
 
-  selectedEventTitle = eventEl.querySelector(".event-title").innerText.trim();
+  selectedEventId = eventEl.getAttribute("data-id");
+  if (!selectedEventId) return;
+
   openPopup();
 });
 
-document.getElementById("confirmDelete").addEventListener("click", () => {
-  if (!selectedEventTitle) return;
+document.getElementById("confirmDelete").addEventListener("click", async () => {
+  if (!selectedEventId) return;
 
-  const dayObj = eventsArr.find(ev => ev.day === activeDay && ev.month === month + 1 && ev.year === year);
-  if (dayObj) {
-    dayObj.events = dayObj.events.filter(ev => ev.title !== selectedEventTitle);
+  const resp = await fetch(`/notas/${selectedEventId}/excluir`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    },
+  });
 
-    if (dayObj.events.length === 0) {
-      const index = eventsArr.indexOf(dayObj);
-      if (index > -1) eventsArr.splice(index, 1);
-
-      const activeDayEl = document.querySelector(".day.active");
-      if (activeDayEl) activeDayEl.classList.remove("event");
-    }
+  if (resp.ok) {
+    window.location.href = "/calendario";
+  } else {
+    alert("Erro ao excluir nota.");
   }
-
-  updateEvents(activeDay);
-
   closePopup();
-  selectedEventTitle = null;
+  selectedEventId = null;
 });
+
 
 document.getElementById("cancelDelete").addEventListener("click", () => {
   closePopup();
-  selectedEventTitle = null;
+  selectedEventId = null;
 });
 
 function convertTime(time) {
@@ -506,6 +377,8 @@ function convertTime(time) {
 const menuIcon = document.getElementById("menu-icon");
 const menu = document.getElementById("menu");
 
-menuIcon.addEventListener("click", () => {
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
-});
+if (menuIcon && menu) {
+  menuIcon.addEventListener("click", () => {
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  });
+}
