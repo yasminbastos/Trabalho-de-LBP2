@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nora</title>
+
+    <!-- LINKS EXTERNOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+
+    <!-- CSS DO PROJETO -->
+    <link rel="stylesheet" th:href="@{/css/nora.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/mascote.png}">
+</head>
+<body>
+
+<div class="container">
+    <div class="illustration"></div>
+
+    <div class="content">
+        <h1>Nora 💬</h1>
+
+        <p>Humor registrado hoje:</p>
+        <strong th:text="${humor}"></strong>
+
+        <!-- BOTÃO INICIAR -->
+        <form th:if="${sugestoes == null}" method="post" th:action="@{/nora}">
+            <button type="submit">Iniciar sugestões</button>
+        </form>
+
+        <!-- MENSAGENS DA NORA -->
+        <div th:if="${sugestoes != null}" class="mensagem-nora">
+            <ul>
+                <li th:each="msg : ${sugestoes}" th:text="${msg}"></li>
+            </ul>
+        </div>
+
+        <a th:href="@{/home}">Voltar para home</a>
+    </div>
+</div>
+
+</body>
+</html>

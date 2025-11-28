@@ -77,12 +77,11 @@ public class RegistroDiaController {
         registro.setAnotacoes(anotacoes);
         registroDiaRepository.save(registro);
 
-        model.addAttribute("nome", usuario.getNome());
-        model.addAttribute("registro", registro);
+        // Salva o humor do dia na session para a Nora usar depois
+        session.setAttribute("humorHoje", humor);
 
-        model.addAttribute("registroSucesso", true);
+        return "redirect:/calendario";
 
-        return "registro";
     }
 
 
