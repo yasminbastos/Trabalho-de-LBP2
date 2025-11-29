@@ -11,10 +11,8 @@
 </head>
 
 <body>
-<!-- ===== ===== Body Main-Background ===== ===== -->
 <span class="main_bg"></span>
 
-<!-- ===== ===== Main-Container ===== ===== -->
 <div class="edit-container">
     <div class="edit-card">
         <div class="edit-header">
@@ -28,7 +26,9 @@
 
                 <div class="photo-upload">
                     <div class="photo-preview">
-                        <img id="previewImage" th:src="${fotoPerfil != null} ? ${fotoPerfil} : '/images/icone.png'" alt="Preview">
+                        <img th:if="${fotoPerfil}"
+                             th:src="@{/fotos-perfil/{nome}(nome=${fotoPerfil})}"
+                             alt="Foto de Perfil">
                     </div>
                     <div class="upload-controls">
                         <label for="fotoPerfil" class="upload-btn">
@@ -121,7 +121,6 @@
         reader.readAsDataURL(event.target.files[0]);
     }
 
-    // Preencher o select de estado civil com o valor atual
     document.addEventListener('DOMContentLoaded', function() {
         const estadoCivil = "[[${estadoCivil}]]";
         if (estadoCivil) {

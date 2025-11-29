@@ -12,42 +12,37 @@
 </head>
 
 <body>
-    <!-- Container principal da página -->
-    <div class="container">
-        <!-- Cabeçalho com o menu simples -->
-        <header>
-            <div class="logo">
-                <img src="images/logo.png">
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Inicial</a></li>
-                    <li><a href="#">Perfil</a></li>
-                </ul>
-            </nav>
-        </header>
 
-        <!-- Seção principal (mensagem de erro) -->
-        <main>
-            <div class="text-section">
-                <h1>Oops!</h1>
-                <h2>O tempo limite da solicitação foi excedido</h2>
-                <p>Tente novamente mais tarde.</p>
-                <button>Mais informações</button>
-            </div>
+<div class="container">
+    <header>
+        <a th:href="@{/home}">
+            <img th:src="@{/images/logo.png}" alt="Logo Motion" width="65" height="55">
+        </a>
+        <nav>
+            <ul>
+                <li><a th:href="@{/home}">Home</a></li>
+                <li><a th:href="@{/inicial}">Inicial</a></li>
+            </ul>
+        </nav>
+    </header>
 
-            <!-- imagem de erro -->
-                <div class="error-image">
-                    <img src="images/error.png">
-            </div>
+    <main>
+        <div class="text-section">
+            <h1>Oops!</h1>
+            <h2>O tempo limite da solicitação foi excedido</h2>
+            <p>Tente novamente mais tarde.</p>
+            <button>Mais informações</button>
+        </div>
 
-        </main>
+        <div class="error-image">
+            <img src="images/error.png">
+        </div>
 
-        <!-- Rodapé com crédito -->
-        <footer>
-            <p>© 2025 Motion — Todos os direitos reservados</p>
-        </footer>
-    </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Motion — Todos os direitos reservados</p>
+    </footer>
+</div>
 </body>
 </html>

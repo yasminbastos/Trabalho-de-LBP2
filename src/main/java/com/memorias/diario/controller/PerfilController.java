@@ -17,8 +17,7 @@ import java.util.UUID;
 @Controller
 public class PerfilController {
 
-    private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
-
+    private static final String UPLOAD_DIR = "./uploads/fotosPerfil/";
     private final UsuariosRepository usuariosRepository;
     private final PerfilRepository perfilRepository;
 
@@ -136,11 +135,17 @@ public class PerfilController {
 
         if (fotoPerfil != null && !fotoPerfil.isEmpty()) {
             try {
-                Files.createDirectories(Paths.get(UPLOAD_DIR));
+                Path pathDiretorio = Paths.get(UPLOAD_DIR);
+
+                Files.createDirectories(pathDiretorio);
+
                 String nomeArquivo = UUID.randomUUID().toString() + "_" + fotoPerfil.getOriginalFilename();
-                Path caminho = Paths.get(UPLOAD_DIR + nomeArquivo);
-                Files.write(caminho, fotoPerfil.getBytes());
-                perfil.setFotoPerfil("/uploads/" + nomeArquivo);
+                Path caminhoCompleto = pathDiretorio.resolve(nomeArquivo);
+
+                Files.copy(fotoPerfil.getInputStream(), caminhoCompleto, StandardCopyOption.REPLACE_EXISTING);
+
+                perfil.setFotoPerfil(nomeArquivo);
+
             } catch (IOException e) {
                 System.err.println("Erro ao salvar foto: " + e.getMessage());
             }

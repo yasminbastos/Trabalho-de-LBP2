@@ -357,7 +357,7 @@ select:focus-visible {
     .form-group select {
         background: rgba(255, 255, 255, 0.05);
         border-color: rgba(154, 68, 208, 0.3);
-        color: white;
+        color: #6b3c7f;
     }
 
     .form-group label {

@@ -159,6 +159,7 @@ body {
   display: inline-block;
 }
 
+/* ✅ AJUSTE CRUCIAL: Garante que a imagem principal tenha tamanho fixo e use object-fit */
 .container .userProfile .profile figure img {
   width: 20rem;
   height: 20rem;
@@ -519,6 +520,7 @@ body {
     border-color: rgba(154, 68, 208, 0.2);
 }
 
+/* ✅ AJUSTE CRUCIAL: Adicionado o seletor .user-avatar para controlar o tamanho da imagem no cabeçalho */
 .user-avatar {
     width: 40px;
     height: 40px;

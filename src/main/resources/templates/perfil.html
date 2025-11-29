@@ -12,10 +12,8 @@
 </head>
 
 <body>
-<!-- ===== ===== Body Main-Background ===== ===== -->
 <span class="main_bg"></span>
 
-<!-- ===== ===== Header ===== ===== -->
 <header class="main-header">
     <div class="header-container">
         <div class="logo">
@@ -51,8 +49,10 @@
         <div class="header-actions">
             <div class="user-menu">
                 <div class="user-info">
-                    <img th:src="${fotoPerfil != null} ? ${fotoPerfil} : '/images/icone.png'" alt="Perfil" class="user-avatar">
-                    <span class="user-name" th:text="${usuario}">Usuário</span>
+                    <img th:if="${fotoPerfil}"
+                         th:src="@{/fotos-perfil/{nome}(nome=${fotoPerfil})}"
+                         alt="Foto de Perfil"
+                         class="user-avatar">
                     <i class="ri-arrow-down-s-line"></i>
                 </div>
                 <div class="dropdown-menu">
@@ -79,14 +79,14 @@
     </div>
 </header>
 
-<!-- ===== ===== Main-Container ===== ===== -->
 <div class="container">
 
-    <!-- ===== ===== User Main-Profile ===== ===== -->
     <section class="userProfile card">
         <div class="profile">
             <figure>
-                <img id="profileImage" th:src="${fotoPerfil != null} ? ${fotoPerfil} : '/images/icone.png'" alt="profile" width="250px" height="250px">
+                <img th:if="${fotoPerfil}"
+                     th:src="@{/fotos-perfil/{nome}(nome=${fotoPerfil})}"
+                     alt="Foto de Perfil">
                 <div class="edit-overlay" onclick="document.getElementById('uploadPhoto').click()">
                     <i class="ri-camera-fill"></i>
                     <span>Alterar foto</span>
@@ -103,27 +103,30 @@
         </div>
     </section>
 
-    <!-- ===== ===== Work & Skills Section ===== ===== -->
+    <!-- SEÇÃO ATUALIZADA (LOGO NO LUGAR DO RELATÓRIO) -->
     <section class="work_skills card">
         <div class="skills">
-            <h1 class="heading">Relatório Semanal de Emoções</h1>
-            <div class="emotion-chart">
-                <canvas id="emotionChart" width="420" height="300"></canvas>
+            <h1 class="heading">Identidade Visual</h1>
+
+            <div class="emotion-chart"
+                 style="display: flex; justify-content: center; align-items: center; height: 300px;">
+                <img src="/images/logo.png"
+                     alt="Logo"
+                     style="width: 420px; height: 300px; object-fit: contain;">
             </div>
         </div>
     </section>
+    <!-- FIM DA SEÇÃO ATUALIZADA -->
 
-    <!-- ===== ===== User Details Sections ===== ===== -->
     <section class="userDetails card">
         <div class="userName">
             <h1><span th:text="${usuario}">Usuário</span></h1>
-            <p th:text="${profissao != null} ? ${profissao} : 'Profissão não informada'">Designer Gráfica</p>
+            <p th:text="${profissao != null ? profissao : 'Profissão não informada'}">Designer Gráfica</p>
         </div>
 
         <div class="rank">
             <h1 class="heading">Dias de Uso</h1>
-            <span th:text="${diasUso != null} ? ${diasUso} + ' dias' : '0 dias'">86 dias</span>
-
+            <span th:text="${diasUso != null ? diasUso + ' dias' : '0 dias'}">86 dias</span>
         </div>
 
         <div class="btns">
@@ -136,7 +139,6 @@
         </div>
     </section>
 
-    <!-- ===== ===== Timeline & About Sections ===== ===== -->
     <section class="timeline_about card">
         <div class="tabs">
             <ul>
@@ -151,12 +153,12 @@
             <ul>
                 <li class="phone">
                     <h1 class="label">Telefone:</h1>
-                    <span class="info" th:text="${telefone != null} ? ${telefone} : 'Não informado'">+11 4002-8922</span>
+                    <span class="info" th:text="${telefone != null ? telefone : 'Não informado'}">+11 4002-8922</span>
                 </li>
                 <br>
                 <li class="address">
                     <h1 class="label">Estado Civil:</h1>
-                    <span class="info" th:text="${estadoCivil != null} ? ${estadoCivil} : 'Não informado'">Casada</span>
+                    <span class="info" th:text="${estadoCivil != null ? estadoCivil : 'Não informado'}">Casada</span>
                 </li>
                 <br>
                 <li class="email">
@@ -166,28 +168,26 @@
                 <br>
                 <li class="email">
                     <h1 class="label">Estado:</h1>
-                    <span class="info" th:text="${estado != null} ? ${estado} : 'Não informado'">São Paulo, SP</span>
+                    <span class="info" th:text="${estado != null ? estado : 'Não informado'}">São Paulo, SP</span>
                 </li>
                 <br>
                 <li class="email">
                     <h1 class="label">Cidade:</h1>
-                    <span class="info" th:text="${cidade != null} ? ${cidade} : 'Não informada'">São Paulo</span>
+                    <span class="info" th:text="${cidade != null ? cidade : 'Não informada'}">São Paulo</span>
                 </li>
                 <br>
                 <li class="email">
                     <h1 class="label">Data de Nascimento:</h1>
-                    <span class="info" th:text="${dataNascimento != null} ? ${dataNascimento} : 'Não informada'">15/05/1990</span>
+                    <span class="info" th:text="${dataNascimento != null ? dataNascimento : 'Não informada'}">15/05/1990</span>
                 </li>
                 <br>
             </ul>
         </div>
     </section>
+
 </div>
 
-<!-- Script para gráfico de emoções -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Função para upload de foto via AJAX
     function uploadFoto(file) {
         if (!file) return;
 
@@ -198,61 +198,22 @@
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                document.getElementById('profileImage').src = data.caminho;
-                // Atualizar também a foto no header
-                document.querySelector('.user-avatar').src = data.caminho;
-                alert('Foto atualizada com sucesso!');
-            } else {
-                alert('Erro ao atualizar foto: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            alert('Erro ao atualizar foto');
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    document.querySelector('.user-info img').src = data.caminho;
+                    document.querySelector('.userProfile figure img').src = data.caminho;
+                    alert('Foto atualizada com sucesso!');
+                } else {
+                    alert('Erro ao atualizar foto: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao atualizar foto');
+            });
     }
 
-    // Dados para o gráfico de emoções
-    const emotionData = {
-        labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-        datasets: [{
-            label: 'Nível de Bem-estar',
-            data: [7, 5, 6, 8, 4, 9, 7],
-            backgroundColor: 'rgba(154, 68, 208, 0.2)',
-            borderColor: 'rgba(154, 68, 208, 1)',
-            borderWidth: 2,
-            tension: 0.4,
-            fill: true
-        }]
-    };
-
-    // Configuração do gráfico
-    const config = {
-        type: 'line',
-        data: emotionData,
-        options: {
-            responsive: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 10,
-                    ticks: {
-                        stepSize: 2
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    };
-
-    // Menu dropdown do usuário
     document.addEventListener('DOMContentLoaded', function() {
         const userMenu = document.querySelector('.user-info');
         const dropdownMenu = document.querySelector('.dropdown-menu');
@@ -262,22 +223,16 @@
             dropdownMenu.classList.toggle('show');
         });
 
-        // Fechar dropdown ao clicar fora
         document.addEventListener('click', function() {
             dropdownMenu.classList.remove('show');
         });
 
-        // Menu mobile
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.querySelector('.nav-menu');
 
         mobileMenuBtn.addEventListener('click', function() {
             navMenu.classList.toggle('show');
         });
-
-        // Inicializar o gráfico
-        const ctx = document.getElementById('emotionChart').getContext('2d');
-        new Chart(ctx, config);
     });
 </script>
 

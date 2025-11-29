@@ -64,6 +64,7 @@ public class LoginController {
         return "login";
     }
 
+
     @GetMapping("/cadastro")
     public String cadastroPage() {
         return "cadastro";
@@ -73,7 +74,9 @@ public class LoginController {
     public String cadastrar(@RequestParam String nome,
                             @RequestParam String email,
                             @RequestParam String senha,
-                            Model model) {
+                            Model model,
+                            HttpSession session) {
+
         Usuario novoUsuario = new Usuario();
         novoUsuario.setNome(nome);
         novoUsuario.setEmail(email);
@@ -81,8 +84,11 @@ public class LoginController {
 
         repository.save(novoUsuario);
 
-        model.addAttribute("mensagem", "Cadastro realizado com sucesso!");
-        return "formularioIntro";
+        session.setAttribute("primeiroAcesso", true);
+
+        session.setAttribute("mensagemCadastro", "Cadastro realizado com sucesso!");
+
+        return "redirect:/formulario";
     }
 
     @GetMapping("/home")
