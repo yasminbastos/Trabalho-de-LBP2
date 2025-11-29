@@ -117,6 +117,7 @@ Após a interação, recomendações personalizadas são apresentadas no formato
   <li>Exibição de detalhes ao clicar em um dia</li>
   <li>Desenvolvimento da página Home</li>
   <li>Ajustes do sistema de notas</li>
+  <li>Assisten virtual Nora</li>
 </ul>
 
 <h3>Mayara</h3>
@@ -152,3 +153,6 @@ Após a interação, recomendações personalizadas são apresentadas no formato
 O sistema de acompanhamento de humor oferece uma solução completa para o registro e análise emocional do usuário. 
 Com boa distribuição das responsabilidades, o projeto reúne recursos como registro diário, visualização em calendário, resumos semanais e gerenciamento de perfil, proporcionando uma experiência prática, intuitiva e organizada.
 </p>
+
+<h3>Vídeo de Apresentação</h3>
+<p>Link do Youtube: https://youtu.be/zwY4kbp8e8U?si=7AWlQIDjqj6Rknmi</p>
