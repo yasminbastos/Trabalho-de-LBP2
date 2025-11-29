@@ -27,7 +27,7 @@ public class RelatorioSemanalController {
     }
 
     @GetMapping
-    public String relatorioSemana(HttpSession session, Model model) {
+    public String relatorioSemanal(HttpSession session, Model model) {
 
         Long id = (Long) session.getAttribute("usuarioId");
         if (id == null) return "redirect:/login";
@@ -41,7 +41,40 @@ public class RelatorioSemanalController {
         List<RegistroDia> semana = registroDiaRepository
                 .findAllByUsuarioAndDataBetweenOrderByDataDesc(usuario, inicio, hoje);
 
-        model.addAttribute("semana", semana);
+        List<Map<String, Object>> relatorio = new ArrayList<>();
+        int somaIntensidade = 0;
+        int diasComHumor = 0;
+
+        for (RegistroDia r : semana) {
+
+            Map<String, Object> dia = new HashMap<>();
+            dia.put("date", r.getData().toString());
+            dia.put("humor", r.getHumor());
+            dia.put("notas", r.getAnotacoes());
+
+            int intensidade = (r.getHumor() != null)
+                    ? 70 + new Random().nextInt(21)
+                    : 60;
+
+            dia.put("intensidade", intensidade);
+
+            somaIntensidade += intensidade;
+            diasComHumor++;
+
+            dia.put("playlistUrl", null);
+
+            relatorio.add(dia);
+        }
+
+        int media = diasComHumor > 0 ? somaIntensidade / diasComHumor : 0;
+
+        String insight = "Você registrou " + diasComHumor +
+                " dias nesta semana. Continue acompanhando suas emoções!";
+
+        model.addAttribute("relatorio", relatorio);
+        model.addAttribute("mediaIntensidade", media);
+        model.addAttribute("resumoSemana", insight);
+
         return "relatorioSemanal";
     }
 }

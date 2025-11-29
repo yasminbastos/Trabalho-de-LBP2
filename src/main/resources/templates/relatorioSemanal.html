@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
     <meta charset="utf-8">
@@ -59,10 +59,10 @@
 
                     <div class="card-actions">
                         <a th:if="${dia.playlistUrl != null}" th:href="${dia.playlistUrl}" target="_blank" class="btn ghost">Ver playlist</a>
-                        <a th:href="@{/formulario/pergunta/0}" class="btn">Registrar hoje</a>
+                        <a th:href="@{/registro}" class="btn">Registrar hoje</a>
                     </div>
-                </div> <!-- /card -->
-            </div> <!-- /cards -->
+                </div>
+            </div>
         </section>
 
         <!-- Gráfico compacto (simples): por humor -->
